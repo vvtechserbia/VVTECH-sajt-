@@ -33,7 +33,10 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  animation: page-in 0.5s ease;
 }
+
+@keyframes page-in { from { opacity: 0; } }
 
 h1, h2, h3 { font-family: var(--font-head); line-height: 1.15; }
 
@@ -341,6 +344,15 @@ img { max-width: 100%; display: block; }
   text-shadow: 0 4px 40px rgba(7, 13, 26, 0.6);
 }
 
+/* naslov se otkriva reč po reč (JS umotava reči u .w spanove) */
+.hero h1 .w { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.hero h1 .w > span {
+  display: inline-block;
+  transform: translateY(112%);
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero h1.words-in .w > span { transform: none; }
+
 /* sekundarna akcija — tekst-link sa animiranom linijom (ne pill) */
 .link-arrow {
   display: inline-flex;
@@ -508,6 +520,32 @@ img { max-width: 100%; display: block; }
   font-weight: 700;
   margin-bottom: 14px;
   color: #fff;
+}
+
+/* animirana akcentna linija ispod naslova sekcija */
+.section-title.reveal::after {
+  content: "";
+  display: block;
+  width: 58px;
+  height: 3px;
+  margin-top: 14px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-title.reveal.in::after { transform: scaleX(1); }
+
+.contact .section-title.reveal::after { margin-left: auto; margin-right: auto; transform-origin: center; }
+
+/* ikonica kartice "iskoci" pri otkrivanju */
+.card.reveal.in .card-icon { animation: icon-pop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+@keyframes icon-pop {
+  from { transform: scale(0.4) rotate(-8deg); opacity: 0; }
+  to { transform: scale(1) rotate(0); opacity: 1; }
 }
 
 .section-sub {

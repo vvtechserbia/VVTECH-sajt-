@@ -73,6 +73,49 @@ if (finePointer) {
   });
 }
 
+// Hero naslov — otkrivanje reč po reč
+const heroH1 = document.querySelector('.hero h1');
+if (heroH1) {
+  function wrapWords(node) {
+    [...node.childNodes].forEach((ch) => {
+      if (ch.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        ch.textContent.split(/(\s+)/).forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+          const outer = document.createElement('span');
+          outer.className = 'w';
+          const inner = document.createElement('span');
+          inner.textContent = part;
+          outer.appendChild(inner);
+          frag.appendChild(outer);
+        });
+        node.replaceChild(frag, ch);
+      } else if (ch.nodeType === 1 && ch.tagName !== 'BR') {
+        wrapWords(ch);
+      }
+    });
+  }
+  wrapWords(heroH1);
+  heroH1.querySelectorAll('.w > span').forEach((s, i) => {
+    s.style.transitionDelay = `${(0.09 * i + 0.15).toFixed(2)}s`;
+  });
+  requestAnimationFrame(() => requestAnimationFrame(() => heroH1.classList.add('words-in')));
+}
+
+// Parallax hero sadržaja pri skrolu (tekst klizi sporije i bledi)
+const heroInner = document.querySelector('.hero .hero-inner');
+if (heroInner) {
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const vh = window.innerHeight;
+    if (y <= vh) {
+      heroInner.style.transform = `translateY(${(y * 0.22).toFixed(1)}px)`;
+      heroInner.style.opacity = String(Math.max(0, 1 - y / (vh * 0.85)));
+    }
+  }, { passive: true });
+}
+
 // Magnetna dugmad — blago prate kursor (samo desktop)
 if (finePointer && !reduceMotion) {
   document.querySelectorAll('.btn').forEach((b) => {
@@ -132,8 +175,15 @@ if (canvas) {
 
   function resize() {
     const rect = canvas.parentElement.getBoundingClientRect();
-    W = canvas.width = rect.width;
-    H = canvas.height = rect.height;
+    // ostro crtanje na retina/mobilnim ekranima: canvas u punoj gustini piksela
+    const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    W = rect.width;
+    H = rect.height;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     const desktop = W > 900;
     CX = desktop ? W * 0.72 : W * 0.5;
     CY = desktop ? H * 0.5 : H * 0.34;
