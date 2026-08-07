@@ -309,21 +309,6 @@ img { max-width: 100%; display: block; }
 
 .hero-inner { position: relative; max-width: 840px; z-index: 2; }
 
-.hero-kicker {
-  display: inline-block;
-  color: var(--accent-2);
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-size: 0.82rem;
-  margin-bottom: 22px;
-  padding: 8px 16px;
-  border: 1px solid var(--border-strong);
-  border-radius: 999px;
-  background: var(--accent-soft);
-  box-shadow: var(--glow);
-}
-
 .hero h1 {
   font-size: clamp(2.4rem, 5.8vw, 4.1rem);
   font-weight: 700;
