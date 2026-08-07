@@ -56,4 +56,4 @@ Posle toga svaki push na `main` automatski objavljuje sajt
 - [ ] Uneti stvarne kontakt podatke (email, telefon, adresa) u sekciju „Kontakt"
 - [ ] Fotografije realnih projekata/mašina u sekciji „Izdvojeni projekti"
 - [x] Engleska verzija sajta (`/en/`)
-- [ ] Uključiti GitHub Pages + DNS (koraci iznad)
+- [x] Uključiti GitHub Pages + DNS (koraci iznad)
