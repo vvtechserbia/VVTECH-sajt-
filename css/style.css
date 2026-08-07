@@ -1033,8 +1033,12 @@ img { max-width: 100%; display: block; }
   .about { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 760px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 640px) {
-  .grid-4, .grid-3, .steps { grid-template-columns: 1fr; }
+  .grid-4, .grid-3, .grid-2, .steps { grid-template-columns: 1fr; }
 
   .nav-toggle { display: block; }
 

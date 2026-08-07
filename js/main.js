@@ -173,27 +173,69 @@ if (canvas) {
     { r: 1.95, tilt: 0.18, speed: 0.27, phase: 4.4 },
   ];
 
+  // pripremljeni sprajtovi (halo, sjaj satelita) — crtaju se JEDNOM,
+  // pa se u svakom frejmu samo kopiraju (drawImage je daleko brzi
+  // od createRadialGradient u petlji — to je izazivalo seckanje)
+  let haloSprite = null, glowSprite = null;
+
+  function makeSprites(dpr) {
+    const hs = Math.ceil(R * 4.4 * dpr);
+    haloSprite = document.createElement('canvas');
+    haloSprite.width = haloSprite.height = hs;
+    const hctx = haloSprite.getContext('2d');
+    const g = hctx.createRadialGradient(hs / 2, hs / 2, R * 0.6 * dpr, hs / 2, hs / 2, R * 2.1 * dpr);
+    g.addColorStop(0, 'rgba(30, 90, 168, 0.22)');
+    g.addColorStop(1, 'rgba(30, 90, 168, 0)');
+    hctx.fillStyle = g;
+    hctx.fillRect(0, 0, hs, hs);
+
+    const gs = 26 * dpr;
+    glowSprite = document.createElement('canvas');
+    glowSprite.width = glowSprite.height = gs;
+    const gctx = glowSprite.getContext('2d');
+    const gg = gctx.createRadialGradient(gs / 2, gs / 2, 0, gs / 2, gs / 2, gs / 2);
+    gg.addColorStop(0, 'rgba(111, 194, 255, 0.55)');
+    gg.addColorStop(1, 'rgba(111, 194, 255, 0)');
+    gctx.fillStyle = gg;
+    gctx.fillRect(0, 0, gs, gs);
+  }
+
+  let DPR = 1;
+
   function resize() {
     const rect = canvas.parentElement.getBoundingClientRect();
-    // ostro crtanje na retina/mobilnim ekranima: canvas u PUNOJ gustini piksela
-    const dpr = Math.min(window.devicePixelRatio || 1, 3);
+    // ostrina: puna gustina piksela na jacim ekranima, 2x na telefonu
+    // (3x na slabom telefonu = 9x vise piksela -> seckanje)
+    const mobile = rect.width <= 900;
+    DPR = Math.min(window.devicePixelRatio || 1, mobile ? 2 : 2.5);
     W = rect.width;
     H = rect.height;
-    canvas.width = Math.round(W * dpr);
-    canvas.height = Math.round(H * dpr);
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(H * DPR);
     canvas.style.width = W + 'px';
     canvas.style.height = H + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const desktop = W > 900;
-    CX = desktop ? W * 0.72 : W * 0.5;
-    CY = desktop ? H * 0.5 : H * 0.34;
-    R = desktop ? Math.min(W * 0.2, H * 0.34) : Math.min(W * 0.4, H * 0.26);
-    stars = Array.from({ length: 110 }, () => ({
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    CX = mobile ? W * 0.5 : W * 0.72;
+    CY = mobile ? H * 0.34 : H * 0.5;
+    R = mobile ? Math.min(W * 0.4, H * 0.26) : Math.min(W * 0.2, H * 0.34);
+    // manje tacaka na telefonu — ista slika, laksi frejm
+    const target = mobile ? 260 : 480;
+    if (sphere.length !== target) {
+      sphere.length = 0;
+      for (let i = 0; i < target; i++) {
+        const y = 1 - (i / (target - 1)) * 2;
+        const r = Math.sqrt(1 - y * y);
+        const th = i * 2.399963229728653;
+        sphere.push({ x: Math.cos(th) * r, y, z: Math.sin(th) * r });
+      }
+    }
+    stars = Array.from({ length: mobile ? 70 : 110 }, () => ({
       x: Math.random() * W,
       y: Math.random() * H,
       s: Math.random() * 1.3 + 0.4,
       p: Math.random() * Math.PI * 2,
     }));
+    makeSprites(DPR);
   }
 
   // rotacija oko Y (spin) pa oko X (nagib), perspektivna projekcija
@@ -221,12 +263,10 @@ if (canvas) {
       ctx.fillRect(s.x, s.y, s.s, s.s);
     }
 
-    // oreol iza planete
-    const halo = ctx.createRadialGradient(CX, CY, R * 0.6, CX, CY, R * 2.1);
-    halo.addColorStop(0, `rgba(30, 90, 168, ${0.22 * mobileDim})`);
-    halo.addColorStop(1, 'rgba(30, 90, 168, 0)');
-    ctx.fillStyle = halo;
-    ctx.fillRect(CX - R * 2.2, CY - R * 2.2, R * 4.4, R * 4.4);
+    // oreol iza planete — pripremljen sprajt, samo kopiranje
+    ctx.globalAlpha = mobileDim;
+    ctx.drawImage(haloSprite, CX - R * 2.2, CY - R * 2.2, R * 4.4, R * 4.4);
+    ctx.globalAlpha = 1;
 
     // planeta od tačaka
     for (const p of sphere) {
@@ -244,8 +284,8 @@ if (canvas) {
     for (const o of ORBITS) {
       // putanja orbite
       ctx.beginPath();
-      for (let i = 0; i <= 90; i++) {
-        const ang = (i / 90) * Math.PI * 2;
+      for (let i = 0; i <= 48; i++) {
+        const ang = (i / 48) * Math.PI * 2;
         const p = { x: Math.cos(ang) * o.r, y: 0, z: Math.sin(ang) * o.r };
         // nagib ravni orbite
         const pt = { x: p.x, y: p.z * Math.sin(o.tilt), z: p.z * Math.cos(o.tilt) };
@@ -270,13 +310,9 @@ if (canvas) {
         ctx.arc(q.sx, q.sy, (head ? 2.6 : 1.4) * q.persp, 0, Math.PI * 2);
         ctx.fill();
         if (head) {
-          const glow = ctx.createRadialGradient(q.sx, q.sy, 0, q.sx, q.sy, 12);
-          glow.addColorStop(0, `rgba(111, 194, 255, ${0.5 * mobileDim})`);
-          glow.addColorStop(1, 'rgba(111, 194, 255, 0)');
-          ctx.fillStyle = glow;
-          ctx.beginPath();
-          ctx.arc(q.sx, q.sy, 12, 0, Math.PI * 2);
-          ctx.fill();
+          ctx.globalAlpha = mobileDim;
+          ctx.drawImage(glowSprite, q.sx - 13, q.sy - 13, 26, 26);
+          ctx.globalAlpha = 1;
         }
       }
     }
