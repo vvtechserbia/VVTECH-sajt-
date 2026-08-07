@@ -476,6 +476,11 @@ img { max-width: 100%; display: block; }
 
 .grid-4 { grid-template-columns: repeat(4, 1fr); }
 .grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); max-width: 980px; }
+
+/* blokovi oblasti na stranici Projekti — gusci ritam */
+.area-block { padding: 56px 0; }
+.area-block .section-title { font-size: 1.45rem; margin-bottom: 26px; }
 
 /* usamljena kartica u zadnjem redu — centriraj je */
 @media (min-width: 981px) {
