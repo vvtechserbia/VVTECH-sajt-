@@ -156,6 +156,9 @@ img { max-width: 100%; display: block; }
 
 .nav-links a:hover { color: #fff; }
 
+.nav-links > li > a.active:not(.btn) { color: #fff; }
+.nav-links > li > a.active:not(.btn)::after { transform: scaleX(1); }
+
 .lang-switch a {
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -453,6 +456,12 @@ img { max-width: 100%; display: block; }
   font-size: 1.05rem;
 }
 
+/* zaglavlje podstranice — h1 umesto h2, malo vise prostora gore */
+.page-head { padding-top: 90px; }
+.page-head h1.section-title { font-size: clamp(2.1rem, 4.2vw, 3.1rem); }
+
+.center-cta { text-align: center; margin-top: 44px; }
+
 .section-dark {
   background:
     radial-gradient(ellipse 55% 50% at 85% 0%, rgba(30, 90, 168, 0.3), transparent),
@@ -472,6 +481,9 @@ img { max-width: 100%; display: block; }
 @media (min-width: 981px) {
   .grid-3 > .card-solo:nth-child(3n + 1):last-child { grid-column: 2; }
 }
+
+/* jedina kartica u gridu (teaser na pocetnoj) — cela sirina */
+.grid-3 > .card:only-child { grid-column: 1 / -1; }
 
 .card {
   background: var(--surface);

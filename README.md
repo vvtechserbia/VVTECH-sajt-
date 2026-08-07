@@ -8,11 +8,14 @@ Statički sajt (HTML + CSS + JS), bez build koraka — može da se hostuje bilo 
 ## Struktura
 
 ```
-index.html        — srpska verzija (sekcije: usluge, proces, projekti, o nama, kontakt)
-en/index.html     — engleska verzija
-css/style.css     — stilovi (svetla tema u bojama logotipa)
-js/main.js        — mobilni meni + sitnice
-assets/           — logo i favicon
+index.html        — početna (SR)
+usluge/  projekti/  o-nama/  kontakt/       — podstranice (SR)
+en/       — početna (EN)
+en/services/  en/projects/  en/about/  en/contact/ — podstranice (EN)
+css/style.css     — stilovi (dark tema, animacije)
+js/main.js        — animacije, mreža čestica, meni, nazad-na-vrh
+assets/           — logo, favicon, og-image
+robots.txt, sitemap.xml — SEO
 CNAME             — domen za GitHub Pages (vvtech-serbia.com)
 .github/workflows/pages.yml — automatski deploy na GitHub Pages pri push-u na main
 ```
