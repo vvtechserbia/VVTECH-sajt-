@@ -801,6 +801,23 @@ img { max-width: 100%; display: block; }
 
 /* ============ Projekti ============ */
 
+.project-shot {
+  width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 18px;
+  display: block;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card:hover .project-shot {
+  transform: scale(1.02);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+}
+
 .tags {
   list-style: none;
   display: flex;
