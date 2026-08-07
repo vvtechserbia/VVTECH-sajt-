@@ -90,7 +90,9 @@ img { max-width: 100%; display: block; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
-  .marquee-track, .blob, .scroll-cue span, .gradient-text { animation: none !important; }
+  .blob, .scroll-cue span, .gradient-text { animation: none !important; }
+  /* zamrznuta marquee traka izgleda kao bag — sakrij je umesto toga */
+  .marquee { display: none; }
 }
 
 /* ============ Header / navigacija ============ */
@@ -399,7 +401,11 @@ img { max-width: 100%; display: block; }
   animation: marquee 30s linear infinite;
 }
 
-.marquee:hover .marquee-track { animation-play-state: paused; }
+/* pauza na hover samo tamo gde hover stvarno postoji (mis) —
+   na touch ekranu tap "zaglavi" :hover i traka stane */
+@media (hover: hover) and (pointer: fine) {
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+}
 
 .marquee-track span {
   color: var(--accent-2);
