@@ -87,8 +87,9 @@ if (finePointer && !reduceMotion) {
 }
 
 // 3D globus sa orbitama i satelitima u hero sekciji (čist canvas, bez biblioteka)
+// Uz prefers-reduced-motion crta se JEDNA statična slika umesto animacije.
 const canvas = document.getElementById('net');
-if (canvas && !reduceMotion) {
+if (canvas) {
   const ctx = canvas.getContext('2d');
   const mouse = { x: 0, y: 0 }; // -1..1 parallax
   let W, H, R, CX, CY, raf;
@@ -142,12 +143,11 @@ if (canvas && !reduceMotion) {
     return { sx: CX + x * R * persp, sy: CY + y * R * persp, z, persp };
   }
 
-  function tick() {
+  function frame() {
     ctx.clearRect(0, 0, W, H);
-    t += 0.005;
     const spin = t + mouse.x * 0.35;
     const tilt = 0.42 + mouse.y * 0.18;
-    const mobileDim = W > 900 ? 1 : 0.6; // na telefonu diskretnije, iza teksta
+    const mobileDim = W > 900 ? 1 : 0.75; // na telefonu diskretnije, iza teksta
 
     // zvezde (blago trepere)
     for (const s of stars) {
@@ -215,33 +215,45 @@ if (canvas && !reduceMotion) {
         }
       }
     }
+  }
 
+  function tick() {
+    t += 0.005;
+    frame();
     raf = requestAnimationFrame(tick);
   }
 
-  const hero = canvas.parentElement;
-  if (finePointer) {
-    hero.addEventListener('mousemove', (e) => {
-      const r = canvas.getBoundingClientRect();
-      mouse.x = ((e.clientX - r.left) / r.width - 0.5) * 2;
-      mouse.y = ((e.clientY - r.top) / r.height - 0.5) * 2;
-    });
-    hero.addEventListener('mouseleave', () => { mouse.x = 0; mouse.y = 0; });
+  if (reduceMotion) {
+    // statična slika globusa — bez animacije, ali se vidi
+    window.addEventListener('resize', () => { resize(); t = 2.2; frame(); });
+    resize();
+    t = 2.2;
+    frame();
+  } else {
+    const hero = canvas.parentElement;
+    if (finePointer) {
+      hero.addEventListener('mousemove', (e) => {
+        const r = canvas.getBoundingClientRect();
+        mouse.x = ((e.clientX - r.left) / r.width - 0.5) * 2;
+        mouse.y = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      });
+      hero.addEventListener('mouseleave', () => { mouse.x = 0; mouse.y = 0; });
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    tick();
+
+    // pauziraj animaciju kad hero nije u kadru (štedi bateriju)
+    new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          if (!raf) tick();
+        } else {
+          cancelAnimationFrame(raf);
+          raf = null;
+        }
+      });
+    }).observe(canvas);
   }
-
-  window.addEventListener('resize', resize);
-  resize();
-  tick();
-
-  // pauziraj animaciju kad hero nije u kadru (štedi bateriju)
-  new IntersectionObserver((entries) => {
-    entries.forEach((en) => {
-      if (en.isIntersecting) {
-        if (!raf) tick();
-      } else {
-        cancelAnimationFrame(raf);
-        raf = null;
-      }
-    });
-  }).observe(canvas);
 }
