@@ -73,6 +73,18 @@ img { max-width: 100%; display: block; }
 
 .nav-links a:hover { color: var(--navy); }
 
+.lang-switch a {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+}
+
+.lang-switch a:hover { background: var(--accent-soft); }
+
 .nav-toggle {
   display: none;
   background: none;
