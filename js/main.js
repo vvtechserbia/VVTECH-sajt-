@@ -86,83 +86,148 @@ if (finePointer && !reduceMotion) {
   });
 }
 
-// Interaktivna mreža čestica u hero sekciji
+// 3D globus sa orbitama i satelitima u hero sekciji (čist canvas, bez biblioteka)
 const canvas = document.getElementById('net');
 if (canvas && !reduceMotion) {
   const ctx = canvas.getContext('2d');
-  const mouse = { x: -9999, y: -9999 };
-  let W, H, pts, raf;
+  const mouse = { x: 0, y: 0 }; // -1..1 parallax
+  let W, H, R, CX, CY, raf;
+  let t = 0;
+
+  // tačke na sferi (fibonačijeva sfera — ravnomeran raspored)
+  const N = 480;
+  const sphere = [];
+  for (let i = 0; i < N; i++) {
+    const y = 1 - (i / (N - 1)) * 2;
+    const r = Math.sqrt(1 - y * y);
+    const th = i * 2.399963229728653;
+    sphere.push({ x: Math.cos(th) * r, y, z: Math.sin(th) * r });
+  }
+
+  // zvezde u pozadini
+  let stars = [];
+
+  // orbite: poluprečnik (u R), nagib ravni, brzina, faza
+  const ORBITS = [
+    { r: 1.45, tilt: 0.5, speed: 0.55, phase: 0 },
+    { r: 1.7, tilt: -0.85, speed: 0.38, phase: 2.1 },
+    { r: 1.95, tilt: 0.18, speed: 0.27, phase: 4.4 },
+  ];
 
   function resize() {
-    const r = canvas.parentElement.getBoundingClientRect();
-    W = canvas.width = r.width;
-    H = canvas.height = r.height;
-    const count = Math.min(90, Math.floor((W * H) / 16000));
-    pts = Array.from({ length: count }, () => ({
+    const rect = canvas.parentElement.getBoundingClientRect();
+    W = canvas.width = rect.width;
+    H = canvas.height = rect.height;
+    const desktop = W > 900;
+    CX = desktop ? W * 0.72 : W * 0.5;
+    CY = desktop ? H * 0.5 : H * 0.34;
+    R = desktop ? Math.min(W * 0.2, H * 0.34) : Math.min(W * 0.4, H * 0.26);
+    stars = Array.from({ length: 110 }, () => ({
       x: Math.random() * W,
       y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
+      s: Math.random() * 1.3 + 0.4,
+      p: Math.random() * Math.PI * 2,
     }));
+  }
+
+  // rotacija oko Y (spin) pa oko X (nagib), perspektivna projekcija
+  function project(p, spin, tiltX) {
+    const cy = Math.cos(spin), sy = Math.sin(spin);
+    let x = p.x * cy + p.z * sy;
+    let z = -p.x * sy + p.z * cy;
+    const cx = Math.cos(tiltX), sx = Math.sin(tiltX);
+    let y = p.y * cx - z * sx;
+    z = p.y * sx + z * cx;
+    const persp = 1 / (1 + z * 0.22);
+    return { sx: CX + x * R * persp, sy: CY + y * R * persp, z, persp };
   }
 
   function tick() {
     ctx.clearRect(0, 0, W, H);
-    const LINK = 130;
+    t += 0.005;
+    const spin = t + mouse.x * 0.35;
+    const tilt = 0.42 + mouse.y * 0.18;
+    const mobileDim = W > 900 ? 1 : 0.6; // na telefonu diskretnije, iza teksta
 
-    for (const p of pts) {
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < 0 || p.x > W) p.vx *= -1;
-      if (p.y < 0 || p.y > H) p.vy *= -1;
-
-      // blagi beg od miša
-      const dx = p.x - mouse.x;
-      const dy = p.y - mouse.y;
-      const d2 = dx * dx + dy * dy;
-      if (d2 < 120 * 120 && d2 > 0.01) {
-        const d = Math.sqrt(d2);
-        p.x += (dx / d) * 0.6;
-        p.y += (dy / d) * 0.6;
-      }
+    // zvezde (blago trepere)
+    for (const s of stars) {
+      const a = 0.25 + 0.25 * Math.sin(t * 2 + s.p);
+      ctx.fillStyle = `rgba(200, 225, 255, ${a * mobileDim})`;
+      ctx.fillRect(s.x, s.y, s.s, s.s);
     }
 
-    ctx.lineWidth = 1;
-    for (let i = 0; i < pts.length; i++) {
-      for (let j = i + 1; j < pts.length; j++) {
-        const dx = pts[i].x - pts[j].x;
-        const dy = pts[i].y - pts[j].y;
-        const d = Math.hypot(dx, dy);
-        if (d < LINK) {
-          ctx.strokeStyle = `rgba(61, 165, 255, ${0.16 * (1 - d / LINK)})`;
+    // oreol iza planete
+    const halo = ctx.createRadialGradient(CX, CY, R * 0.6, CX, CY, R * 2.1);
+    halo.addColorStop(0, `rgba(30, 90, 168, ${0.22 * mobileDim})`);
+    halo.addColorStop(1, 'rgba(30, 90, 168, 0)');
+    ctx.fillStyle = halo;
+    ctx.fillRect(CX - R * 2.2, CY - R * 2.2, R * 4.4, R * 4.4);
+
+    // planeta od tačaka
+    for (const p of sphere) {
+      const q = project(p, spin, tilt);
+      const front = (1 - q.z) / 2; // 1 = ka posmatraču
+      const a = (0.1 + front * 0.72) * mobileDim;
+      const size = (0.8 + front * 1.5) * q.persp;
+      ctx.fillStyle = `rgba(111, 194, 255, ${a})`;
+      ctx.beginPath();
+      ctx.arc(q.sx, q.sy, size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // orbite + sateliti
+    for (const o of ORBITS) {
+      // putanja orbite
+      ctx.beginPath();
+      for (let i = 0; i <= 90; i++) {
+        const ang = (i / 90) * Math.PI * 2;
+        const p = { x: Math.cos(ang) * o.r, y: 0, z: Math.sin(ang) * o.r };
+        // nagib ravni orbite
+        const pt = { x: p.x, y: p.z * Math.sin(o.tilt), z: p.z * Math.cos(o.tilt) };
+        const q = project(pt, spin * 0.25, tilt);
+        if (i === 0) ctx.moveTo(q.sx, q.sy);
+        else ctx.lineTo(q.sx, q.sy);
+      }
+      ctx.strokeStyle = `rgba(61, 165, 255, ${0.16 * mobileDim})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // satelit + trag
+      for (let k = 0; k < 14; k++) {
+        const ang = t * o.speed * 2 + o.phase - k * 0.035;
+        const p = { x: Math.cos(ang) * o.r, y: 0, z: Math.sin(ang) * o.r };
+        const pt = { x: p.x, y: p.z * Math.sin(o.tilt), z: p.z * Math.cos(o.tilt) };
+        const q = project(pt, spin * 0.25, tilt);
+        const head = k === 0;
+        const a = (head ? 0.95 : 0.5 * (1 - k / 14)) * mobileDim;
+        ctx.fillStyle = `rgba(${head ? '168, 220, 255' : '61, 165, 255'}, ${a})`;
+        ctx.beginPath();
+        ctx.arc(q.sx, q.sy, (head ? 2.6 : 1.4) * q.persp, 0, Math.PI * 2);
+        ctx.fill();
+        if (head) {
+          const glow = ctx.createRadialGradient(q.sx, q.sy, 0, q.sx, q.sy, 12);
+          glow.addColorStop(0, `rgba(111, 194, 255, ${0.5 * mobileDim})`);
+          glow.addColorStop(1, 'rgba(111, 194, 255, 0)');
+          ctx.fillStyle = glow;
           ctx.beginPath();
-          ctx.moveTo(pts[i].x, pts[i].y);
-          ctx.lineTo(pts[j].x, pts[j].y);
-          ctx.stroke();
+          ctx.arc(q.sx, q.sy, 12, 0, Math.PI * 2);
+          ctx.fill();
         }
       }
-    }
-
-    ctx.fillStyle = 'rgba(111, 194, 255, 0.6)';
-    for (const p of pts) {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
-      ctx.fill();
     }
 
     raf = requestAnimationFrame(tick);
   }
 
   const hero = canvas.parentElement;
-  hero.addEventListener('mousemove', (e) => {
-    const r = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - r.left;
-    mouse.y = e.clientY - r.top;
-  });
-  hero.addEventListener('mouseleave', () => {
-    mouse.x = -9999;
-    mouse.y = -9999;
-  });
+  if (finePointer) {
+    hero.addEventListener('mousemove', (e) => {
+      const r = canvas.getBoundingClientRect();
+      mouse.x = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      mouse.y = ((e.clientY - r.top) / r.height - 0.5) * 2;
+    });
+    hero.addEventListener('mouseleave', () => { mouse.x = 0; mouse.y = 0; });
+  }
 
   window.addEventListener('resize', resize);
   resize();

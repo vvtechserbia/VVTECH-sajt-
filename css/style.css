@@ -244,9 +244,17 @@ img { max-width: 100%; display: block; }
 
 .hero {
   position: relative;
-  padding: 150px 0 160px;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  padding: 90px 0 110px;
   overflow: hidden;
   color: #fff;
+}
+
+.hero > .container { width: 100%; }
+
+.hero {
   background:
     radial-gradient(ellipse 70% 55% at 70% -10%, rgba(30, 90, 168, 0.4), transparent),
     radial-gradient(ellipse 45% 40% at 10% 105%, rgba(30, 90, 168, 0.25), transparent),
@@ -295,12 +303,7 @@ img { max-width: 100%; display: block; }
   animation: float-b 14s ease-in-out infinite;
 }
 
-.blob-3 {
-  width: 240px; height: 240px;
-  background: rgba(111, 194, 255, 0.18);
-  top: 28%; left: 56%;
-  animation: float-a 17s ease-in-out infinite reverse;
-}
+.blob-3 { display: none; }
 
 @keyframes float-a {
   0%, 100% { transform: translate(0, 0) scale(1); }
@@ -312,7 +315,18 @@ img { max-width: 100%; display: block; }
   50% { transform: translate(42px, -28px) scale(0.94); }
 }
 
-.hero-inner { position: relative; max-width: 840px; z-index: 2; }
+.hero-inner { position: relative; max-width: 640px; z-index: 2; }
+
+/* na desktopu desna polovina pripada globusu — poravnaj tekst uz levu
+   ivicu kao ostale .container sekcije (element nosi obe klase pa bi ga
+   margin:auto centrirao) */
+@media (min-width: 901px) {
+  .hero .hero-inner {
+    margin-left: max(24px, calc((100% - var(--container)) / 2));
+    margin-right: 0;
+  }
+  .hero h1 { font-size: clamp(2.2rem, 4.4vw, 3.6rem); }
+}
 
 .hero h1 {
   font-size: clamp(2.4rem, 5.8vw, 4.1rem);
@@ -857,7 +871,7 @@ img { max-width: 100%; display: block; }
 
   .nav-links .btn-small { justify-content: center; margin-top: 8px; }
 
-  .hero { padding: 96px 0 104px; }
+  .hero { padding: 96px 0 104px; min-height: 88vh; align-items: flex-end; }
 
   .section { padding: 76px 0; }
 
