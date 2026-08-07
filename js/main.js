@@ -162,7 +162,7 @@ if (canvas) {
     ctx.clearRect(0, 0, W, H);
     const spin = t + mouse.x * 0.35;
     const tilt = 0.42 + mouse.y * 0.18;
-    const mobileDim = W > 900 ? 1 : 0.75; // na telefonu diskretnije, iza teksta
+    const mobileDim = W > 900 ? 1 : 0.55; // na telefonu diskretnije, iza teksta
 
     // zvezde (blago trepere)
     for (const s of stars) {
