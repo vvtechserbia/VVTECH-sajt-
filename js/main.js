@@ -175,8 +175,8 @@ if (canvas) {
 
   function resize() {
     const rect = canvas.parentElement.getBoundingClientRect();
-    // ostro crtanje na retina/mobilnim ekranima: canvas u punoj gustini piksela
-    const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    // ostro crtanje na retina/mobilnim ekranima: canvas u PUNOJ gustini piksela
+    const dpr = Math.min(window.devicePixelRatio || 1, 3);
     W = rect.width;
     H = rect.height;
     canvas.width = Math.round(W * dpr);
