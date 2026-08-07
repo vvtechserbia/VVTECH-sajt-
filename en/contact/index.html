@@ -62,6 +62,28 @@
       <h1 class="section-title reveal">Contact</h1>
       <p class="section-sub reveal d-1">Describe your problem or idea — we will get back to you with a proposed solution.</p>
 
+      <form class="contact-form reveal d-2" action="https://formsubmit.co/vvtechserbia@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Inquiry from website — VVTECH">
+        <input type="hidden" name="_cc" value="office@vvtech-serbia.com">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://vvtech-serbia.com/en/contact/thanks/">
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="form-row">
+          <label>Full name<input type="text" name="Name" required autocomplete="name"></label>
+          <label>Email<input type="email" name="Email" required autocomplete="email"></label>
+        </div>
+        <div class="form-row">
+          <label>Phone (optional)<input type="tel" name="Phone" autocomplete="tel"></label>
+          <label>Company (optional)<input type="text" name="Company" autocomplete="organization"></label>
+        </div>
+        <label>Message<textarea name="Message" rows="6" required></textarea></label>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-lg">Send inquiry <span class="btn-arrow">→</span></button>
+          <p class="contact-note">Your inquiry reaches both of our addresses.</p>
+        </div>
+      </form>
+
+      <h2 class="section-title reveal" style="margin-top:70px;">Direct contact</h2>
       <div class="grid grid-3 contact-grid">
         <a class="card contact-card reveal" href="mailto:office@vvtech-serbia.com?cc=vvtechserbia@gmail.com&subject=Inquiry%20%E2%80%94%20VVTECH%20website">
           <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm8 7L4 6v12h16V6l-8 5Zm0-2 8-5H4l8 5Z"/></svg></div>
@@ -80,17 +102,36 @@
         </a>
       </div>
 
-      <div class="contact-cta reveal d-3">
-        <a class="btn btn-lg" href="mailto:office@vvtech-serbia.com?cc=vvtechserbia@gmail.com&subject=Inquiry%20%E2%80%94%20VVTECH%20website">Send an inquiry <span class="btn-arrow">→</span></a>
-        <p class="contact-note">Your inquiry reaches both addresses · VVTECH · Serbia</p>
-      </div>
     </div>
   </section>
 </main>
 
 <footer class="site-footer">
-  <div class="container footer-inner">
-    <img src="../../assets/logo-horizontal-white.png" alt="VVTECH" class="footer-logo" width="120" height="26">
+  <div class="container footer-grid">
+    <div class="footer-col footer-brand">
+      <img src="../../assets/logo-horizontal-white.png" alt="VVTECH" class="footer-logo" width="139" height="30">
+      <p>Tailor-made engineering — industrial automation, embedded systems, GNC software, ERP, AI and cloud.</p>
+    </div>
+    <nav class="footer-col" aria-label="Site">
+      <h4>Site</h4>
+      <ul>
+        <li><a href="../../">Home</a></li>
+        <li><a href="../../services/">Services</a></li>
+        <li><a href="../../projects/">Projects</a></li>
+        <li><a href="../../about/">About</a></li>
+        <li><a href="../../contact/">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:office@vvtech-serbia.com">office@vvtech-serbia.com</a></li>
+        <li><a href="mailto:vvtechserbia@gmail.com">vvtechserbia@gmail.com</a></li>
+        <li><a href="tel:+381606413013">+381 60 641 30 13</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
     <span>© <span id="year"></span> VVTECH — Information Technology. All rights reserved.</span>
     <a href="#" class="to-top-link">Back to top ↑</a>
   </div>
