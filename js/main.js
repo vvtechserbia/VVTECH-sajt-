@@ -57,7 +57,9 @@ const io = new IntersectionObserver(
 
 document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Namerno ne pratimo prefers-reduced-motion: sajt izgleda isto
+// i kada je na telefonu ukljucena stednja baterije.
+const reduceMotion = false;
 const finePointer = window.matchMedia('(pointer: fine)').matches;
 
 // Spotlight na karticama — prati poziciju miša (CSS var za radial gradient)
@@ -68,6 +70,19 @@ if (finePointer) {
       card.style.setProperty('--mx', ((e.clientX - r.left) / r.width) * 100 + '%');
       card.style.setProperty('--my', ((e.clientY - r.top) / r.height) * 100 + '%');
     });
+  });
+}
+
+// Magnetna dugmad — blago prate kursor (samo desktop)
+if (finePointer && !reduceMotion) {
+  document.querySelectorAll('.btn').forEach((b) => {
+    b.addEventListener('mousemove', (e) => {
+      const r = b.getBoundingClientRect();
+      const dx = (e.clientX - r.left - r.width / 2) * 0.18;
+      const dy = (e.clientY - r.top - r.height / 2) * 0.35;
+      b.style.translate = `${dx.toFixed(1)}px ${dy.toFixed(1)}px`;
+    });
+    b.addEventListener('mouseleave', () => { b.style.translate = ''; });
   });
 }
 
