@@ -88,8 +88,8 @@
       <div class="case reveal">
         <div class="case-text">
           <h3>Automatizacija linije za tretman površina</h3>
-          <p>Kompletno upravljanje procesnom linijom: ciklusi obrade, senzorika i izvršni elementi, bezbednosne blokade i komandni panel za operatera — projektovano za rad u tri smene.</p>
-          <ul class="tags"><li>Upravljanje</li><li>Senzorika</li><li>Bezbednost</li></ul>
+          <p>Linija sa fazama pranja, peskarenja i farbanja pod jednim upravljanjem: svaka faza javlja status i temperaturu, komad se prati od ulaza do izlaza, a operater na SCADA ekranu vidi takt, zastoje i OEE. Alarmi (pad pritiska, otvorena vrata komore) stižu pre nego što stane proizvodnja.</p>
+          <ul class="tags"><li>SCADA</li><li>OEE</li><li>Alarmi</li><li>Tri smene</li></ul>
         </div>
         <figure class="case-media">
           <img src="../assets/projects/linija.webp" alt="Automatizacija linije za tretman površina — ekran aplikacije" loading="lazy">
@@ -97,9 +97,9 @@
       </div>
       <div class="grid grid-2">
         <article class="card project reveal">
-          <h3>Modernizacija postojećih sistema</h3>
-          <p>Ugradnja savremene upravljačke elektronike i telemetrije u postojeće mašine i uređaje — produžetak radnog veka opreme, daljinska dijagnostika i manji troškovi održavanja.</p>
-          <ul class="tags"><li>Retrofit</li><li>Telemetrija</li><li>Dijagnostika</li></ul>
+          <h3>Retrofit opreme starije od 20 godina</h3>
+          <p>Umesto kupovine nove mašine — zamenili smo relejnu logiku i tajmere mikrokontrolerskim upravljanjem, dodali senzore i telemetriju. Mašina koja je stajala zbog nemogućih rezervnih delova sada radi punim kapacitetom i javlja kvarove SMS-om.</p>
+          <ul class="tags"><li>Retrofit</li><li>Mikrokontroler</li><li>SMS dojava</li></ul>
         </article>
       </div>
     </div>
@@ -127,19 +127,19 @@
       </div>
       <div class="case flip reveal">
         <div class="case-text">
-          <h3>Daljinski nadzor uređaja na terenu</h3>
-          <p>Kompletan sistem za nadzor i upravljanje specijalnim uređajima raspoređenim na terenu (protivgradna zaštita): GSM telemetrija, GPS pozicioniranje, solarno napajanje, cloud server, mobilna aplikacija i OTA ažuriranje.</p>
-          <ul class="tags"><li>Embedded</li><li>GSM/GPS</li><li>Cloud</li><li>Mobilna aplikacija</li></ul>
+          <h3>PGT-A80 — daljinski nadzor protivgradnih topova</h3>
+          <p>Naš najkompletniji terenski sistem: uređaji rasuti po brdima, bez struje i interneta. Rešenje — solarno napajanje, GSM modem sa SMS protokolom kao rezervom, GPS pozicija, telemetrija pritiska gasa i napona akumulatora na cloud server, i OTA ažuriranje softvera bez izlaska na teren.</p>
+          <ul class="tags"><li>Raspberry Pi</li><li>GSM/SMS</li><li>Solarno</li><li>OTA</li><li>GPS</li></ul>
         </div>
         <figure class="case-media">
-          <img src="../assets/projects/nadzor.webp" alt="Daljinski nadzor uređaja na terenu — ekran aplikacije" loading="lazy">
+          <img src="../assets/projects/nadzor.webp" alt="PGT-A80 — daljinski nadzor protivgradnih topova — ekran aplikacije" loading="lazy">
         </figure>
       </div>
       <div class="grid grid-2">
         <article class="card project reveal">
-          <h3>Telemetrijski modul za surova okruženja</h3>
-          <p>Namenska elektronika sa GSM/LTE i GPS modulima, solarnim napajanjem i energetski efikasnim firmverom — projektovana za višegodišnji autonomni rad na terenu, sa ažuriranjem softvera na daljinu.</p>
-          <ul class="tags"><li>Elektronika</li><li>Firmver</li><li>Solarno napajanje</li><li>OTA</li></ul>
+          <h3>Detekcija opaljenja i potrošnje gasa</h3>
+          <p>Senzorski modul koji iz diferencijalnog pritiska detektuje svako opaljenje uređaja i iz gradijenta pada pritiska računa potrošnju gasa — osnov za brojač opaljenja od poslednje zamene boce i procenu preostalog resursa. U razvoju za sledeću generaciju uređaja.</p>
+          <ul class="tags"><li>Senzorika</li><li>Diferencijalni pritisak</li><li>U razvoju</li></ul>
         </article>
       </div>
     </div>
@@ -162,8 +162,8 @@
       <div class="case reveal">
         <div class="case-text">
           <h3>Zemaljska stanica i telemetrija leta</h3>
-          <p>Softver za praćenje i upravljanje letelicama u realnom vremenu: telemetrija leta, vizuelizacija parametara i veza ka autopilotu — od planiranja do analize nakon leta.</p>
-          <ul class="tags"><li>Zemaljska stanica</li><li>Telemetrija</li><li>Integracija</li></ul>
+          <p>Operaterski softver za praćenje leta u realnom vremenu: mapa misije sa putanjom i tačkama, veštački horizont, visina, brzina i status baterije, režimi AUTO/LOITER/RTL — i kompletan log leta za analizu posle sletanja.</p>
+          <ul class="tags"><li>Zemaljska stanica</li><li>Telemetrija</li><li>Analiza leta</li></ul>
         </div>
         <figure class="case-media">
           <img src="../assets/projects/gnc.webp" alt="Zemaljska stanica i telemetrija leta — ekran aplikacije" loading="lazy">
@@ -171,9 +171,9 @@
       </div>
       <div class="grid grid-2">
         <article class="card project reveal">
-          <h3>GNC softverski stek za bespilotne platforme</h3>
-          <p>Algoritmi vođenja, navigacije i stabilizacije za letelice i autonomne platforme: senzorska fuzija, regulacione petlje i validacija kroz simulacije pre integracije na hardver.</p>
-          <ul class="tags"><li>GNC</li><li>Senzorska fuzija</li><li>Simulacije</li></ul>
+          <h3>Upravljački algoritmi i SIL validacija</h3>
+          <p>Regulacione petlje stabilizacije i vođenja razvijamo prvo u simulaciji (software-in-the-loop): model dinamike letelice, senzorska fuzija i scenariji vetra i otkaza senzora — pa tek onda integracija na stvarni autopilot. Manje rizika, brže iteracije.</p>
+          <ul class="tags"><li>Simulacija</li><li>SIL</li><li>Senzorska fuzija</li></ul>
         </article>
       </div>
     </div>
@@ -195,19 +195,19 @@
       </div>
       <div class="case flip reveal">
         <div class="case-text">
-          <h3>Mašina za peskarenje po meri</h3>
-          <p>Projektovanje i izrada mašine za tretman i obradu površina prilagođene konkretnoj proizvodnji — konstrukcija, pogon, upravljanje i zaštitne funkcije u jednoj celini.</p>
-          <ul class="tags"><li>Mašinstvo</li><li>Upravljanje</li><li>Izrada po meri</li></ul>
+          <h3>Mašina za peskarenje sa automatskim ciklusom</h3>
+          <p>Komora, recirkulacija abraziva, filtracija i upravljanje u jednoj celini: operater bira program, mašina odradi ciklus i sama prati pritisak, protok i nivo abraziva. HMI panel pokazuje parametre procesa i sam najavljuje servis mlaznica i filtera.</p>
+          <ul class="tags"><li>Konstrukcija</li><li>HMI</li><li>Recirkulacija abraziva</li></ul>
         </div>
         <figure class="case-media">
-          <img src="../assets/projects/hmi.webp" alt="Mašina za peskarenje po meri — ekran aplikacije" loading="lazy">
+          <img src="../assets/projects/hmi.webp" alt="Mašina za peskarenje sa automatskim ciklusom — ekran aplikacije" loading="lazy">
         </figure>
       </div>
       <div class="grid grid-2">
         <article class="card project reveal">
-          <h3>Namenski uređaji za rad na terenu</h3>
-          <p>Specijalni uređaji projektovani za spoljašnje uslove: robusna konstrukcija, autonomno napajanje i upravljačka elektronika otporna na vibracije, prašinu i temperaturne ekstreme.</p>
-          <ul class="tags"><li>Konstrukcija</li><li>Autonomno napajanje</li><li>Teren</li></ul>
+          <h3>Elektro oprema terenskih uređaja</h3>
+          <p>Ormari i instalacije za uređaje koji godinama stoje napolju: solarni sistem sa kontrolerom punjenja, zaštita od prenapona i kondenzacije, antenski sistemi za GSM u slaboj pokrivenosti — projektovano da preživi leto na 40°C i zimu na -20°C.</p>
+          <ul class="tags"><li>Solarni sistem</li><li>Zaštita</li><li>Teren</li></ul>
         </article>
       </div>
     </div>
@@ -228,19 +228,19 @@
       </div>
       <div class="case reveal">
         <div class="case-text">
-          <h3>ERP za proizvodne procese</h3>
-          <p>Poslovni softver po meri: radni nalozi i praćenje proizvodnje, magacin i zalihe, izveštaji za rukovodstvo — skrojen tačno po procesu firme, uz integracije sa postojećim alatima.</p>
-          <ul class="tags"><li>Proizvodnja</li><li>Magacin</li><li>Izveštaji</li></ul>
+          <h3>ERP za proizvodnju i radne naloge</h3>
+          <p>Radni nalozi sa napretkom po fazama, magacin sa kritičnim zalihama i rezervacijama materijala po nalogu, rokovi i kašnjenja na jednom ekranu. Bez modula koje niko ne koristi — sistem prati stvaran tok posla firme, od upita do fakture.</p>
+          <ul class="tags"><li>Radni nalozi</li><li>Magacin</li><li>Rokovi</li></ul>
         </div>
         <figure class="case-media">
-          <img src="../assets/projects/erp.webp" alt="ERP za proizvodne procese — ekran aplikacije" loading="lazy">
+          <img src="../assets/projects/erp.webp" alt="ERP za proizvodnju i radne naloge — ekran aplikacije" loading="lazy">
         </figure>
       </div>
       <div class="grid grid-2">
         <article class="card project reveal">
-          <h3>Servisna evidencija i planiranje održavanja</h3>
-          <p>Sistem za praćenje servisnih intervencija i planiranje preventivnog održavanja: istorija po uređaju, automatski podsetnici i pregled troškova kroz vreme.</p>
-          <ul class="tags"><li>Održavanje</li><li>Evidencija</li><li>Planiranje</li></ul>
+          <h3>Servisna knjižica uređaja</h3>
+          <p>Svaki isporučeni uređaj ima svoju istoriju: ugrađene komponente, intervencije, zamene delova i ko je šta radio. Preventivni servis se najavljuje sam na osnovu radnih sati i ciklusa — a ne kad se uređaj pokvari.</p>
+          <ul class="tags"><li>Istorija uređaja</li><li>Preventiva</li><li>Radni sati</li></ul>
         </article>
       </div>
     </div>
@@ -264,22 +264,22 @@
       </div>
       <div class="case flip reveal">
         <div class="case-text">
-          <h3>IoT platforma za flotu uređaja</h3>
-          <p>Centralizovani nadzor i upravljanje većim brojem uređaja: telemetrija u realnom vremenu, alarmi i notifikacije, istorija i analitika podataka, uloge i prava pristupa.</p>
-          <ul class="tags"><li>IoT</li><li>Alarmi</li><li>Analitika</li></ul>
+          <h3>Cloud platforma za nadzor flote</h3>
+          <p>Server koji prima telemetriju cele flote terenskih uređaja: živi statusi preko WebSocket-a, istorija merenja, uloge i prava pristupa (administrator, operater, klijent), automatski alarmi i dnevni izveštaji. Radi neprekidno, sa automatskim ažuriranjem iz git-a.</p>
+          <ul class="tags"><li>Node.js</li><li>WebSocket</li><li>Uloge</li><li>Alarmi</li></ul>
         </div>
         <figure class="case-media">
-          <img src="../assets/projects/flota.webp" alt="IoT platforma za flotu uređaja — ekran aplikacije" loading="lazy">
+          <img src="../assets/projects/flota.webp" alt="Cloud platforma za nadzor flote — ekran aplikacije" loading="lazy">
         </figure>
       </div>
       <div class="case reveal">
         <div class="case-text">
-          <h3>Mobilna aplikacija za nadzor sistema</h3>
-          <p>Android aplikacija sa push notifikacijama u realnom vremenu: status uređaja na terenu, komande na daljinu i dijagnostika — u džepu dežurnog operatera.</p>
-          <ul class="tags"><li>Android</li><li>Notifikacije</li><li>Daljinsko upravljanje</li></ul>
+          <h3>Android aplikacija za dežurne operatere</h3>
+          <p>Aplikacija koja dežurnom operateru u džep donese ono bitno: push notifikaciju kad uređaj prijavi nizak gas ili kvar, status i lokaciju svih uređaja, i komande na daljinu sa potvrdom. Radi i na slaboj mreži — bitne poruke stižu i SMS-om.</p>
+          <ul class="tags"><li>Android</li><li>Push (FCM)</li><li>Komande na daljinu</li></ul>
         </div>
         <figure class="case-media phone">
-          <img src="../assets/projects/app.webp" alt="Mobilna aplikacija za nadzor sistema — ekran aplikacije" loading="lazy">
+          <img src="../assets/projects/app.webp" alt="Android aplikacija za dežurne operatere — ekran aplikacije" loading="lazy">
         </figure>
       </div>
     </div>
@@ -304,19 +304,19 @@
       </div>
       <div class="case flip reveal">
         <div class="case-text">
-          <h3>Prediktivno održavanje iz telemetrije</h3>
-          <p>Analiza telemetrijskih podataka za predikciju otkaza i procenu preostalog resursa (potrošnja, baterije, ciklusi rada) — servis stiže pre kvara, ne posle njega.</p>
-          <ul class="tags"><li>AI</li><li>Predikcija</li><li>Telemetrija</li></ul>
+          <h3>Predikcija potrošnje gasa iz telemetrije</h3>
+          <p>Iz istorije pritiska po uređaju model uči gradijent potrošnje i računa kada će boca biti prazna — pa serviser krene na teren pre nego što uređaj stane. Isti pristup primenjujemo na napon akumulatora i starenje baterija.</p>
+          <ul class="tags"><li>Predikcija</li><li>Telemetrija</li><li>Preostali resurs</li></ul>
         </div>
         <figure class="case-media">
-          <img src="../assets/projects/ai.webp" alt="Prediktivno održavanje iz telemetrije — ekran aplikacije" loading="lazy">
+          <img src="../assets/projects/ai.webp" alt="Predikcija potrošnje gasa iz telemetrije — ekran aplikacije" loading="lazy">
         </figure>
       </div>
       <div class="grid grid-2">
         <article class="card project reveal">
-          <h3>AI agenti i automatizacija procesa</h3>
-          <p>Integracija LLM agenata u poslovne i inženjerske procese: obrada dokumentacije, automatizovano izveštavanje i asistenti skrojeni za konkretan tok rada firme.</p>
-          <ul class="tags"><li>AI agenti</li><li>LLM</li><li>Automatizacija</li></ul>
+          <h3>AI agenti u sopstvenom razvoju</h3>
+          <p>AI ne samo prodajemo — na njemu radimo: LLM agenti nam pišu i pregledaju kod, generišu tehničku dokumentaciju i testove, i skraćuju put od ideje do puštanja u rad. To iskustvo prenosimo klijentima kroz integracije skrojene za njihov tok rada.</p>
+          <ul class="tags"><li>LLM agenti</li><li>Automatizacija</li><li>Interno + za klijente</li></ul>
         </article>
       </div>
     </div>
