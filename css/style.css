@@ -801,6 +801,68 @@ img { max-width: 100%; display: block; }
 
 /* ============ Projekti ============ */
 
+/* ============ Case-study prikaz projekata ============ */
+
+.case {
+  display: grid;
+  grid-template-columns: 0.85fr 1.25fr;
+  gap: 34px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.case.flip .case-media { order: -1; }
+
+.case-text h3 { font-size: 1.3rem; color: #fff; margin-bottom: 10px; font-family: var(--font-head); }
+.case-text p { color: var(--text-dim); font-size: 0.98rem; }
+
+.case-media { margin: 0; }
+
+.case-media img {
+  width: 100%;
+  display: block;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.55);
+  cursor: zoom-in;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.case-media img:hover { transform: scale(1.02); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), var(--glow); }
+
+.case-media.phone { display: flex; justify-content: center; }
+.case-media.phone img { width: auto; max-height: 460px; }
+
+@media (max-width: 860px) {
+  .case { grid-template-columns: 1fr; gap: 18px; margin-bottom: 40px; }
+  .case.flip .case-media { order: 0; }
+  .case-media { order: -1; }
+}
+
+/* uvecani prikaz slike preko celog ekrana */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 14, 0.94);
+  display: grid;
+  place-items: center;
+  padding: 3vh 3vw;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 300;
+  cursor: zoom-out;
+}
+
+.lightbox.open { opacity: 1; pointer-events: auto; }
+
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.8);
+}
+
 .project-shot {
   width: 100%;
   max-height: 340px;
@@ -810,6 +872,7 @@ img { max-width: 100%; display: block; }
   border: 1px solid var(--border);
   margin-bottom: 18px;
   display: block;
+  cursor: zoom-in;
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 

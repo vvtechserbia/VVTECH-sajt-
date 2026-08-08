@@ -116,6 +116,24 @@ if (heroInner) {
   }, { passive: true });
 }
 
+// Lightbox — klik na ekran aplikacije otvara uvecani prikaz
+const shots = document.querySelectorAll('.case-media img, .project-shot');
+if (shots.length) {
+  const lb = document.createElement('div');
+  lb.className = 'lightbox';
+  lb.innerHTML = '<img alt="">';
+  document.body.appendChild(lb);
+  const lbImg = lb.querySelector('img');
+  shots.forEach((img) => {
+    img.addEventListener('click', () => {
+      lbImg.src = img.src;
+      lb.classList.add('open');
+    });
+  });
+  lb.addEventListener('click', () => lb.classList.remove('open'));
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') lb.classList.remove('open'); });
+}
+
 // Magnetna dugmad — blago prate kursor (samo desktop)
 if (finePointer && !reduceMotion) {
   document.querySelectorAll('.btn').forEach((b) => {
