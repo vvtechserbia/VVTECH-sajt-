@@ -37,8 +37,8 @@
 
   /* opcione slike (ako postoje fajlovi slika-gore.png / slika-dole.png pored ovog fajla) */
   .art{position:absolute;left:50%;transform:translateX(-50%);object-fit:contain;object-position:bottom;z-index:4}
-  .art-top{top:30px;width:920px;height:570px}
-  .art-bottom{bottom:0;width:1000px;height:430px}
+  .art-top{top:0;width:960px;height:612px}
+  .art-bottom{bottom:0;width:1000px;height:308px}
 
   /* ---------- tekst ---------- */
   .txt{position:absolute;left:0;right:0;display:flex;justify-content:center;z-index:5}
@@ -125,8 +125,8 @@
   <svg class="layer" id="sparkles" viewBox="0 0 1080 1920"></svg>
 
   <!-- opcione slike junaka (dodati fajlove slika-gore.png i slika-dole.png pored ovog fajla) -->
-  <img class="art art-top" src="slika-gore.png" alt="" onerror="this.remove()">
-  <img class="art art-bottom" src="slika-dole.png" alt="" onerror="this.remove()">
+  <img class="art art-top" src="slika-gore.png" alt="" data-zona="gore">
+  <img class="art art-bottom" src="slika-dole.png" alt="" data-zona="dole">
 
   <!-- ime -->
   <div class="txt name"><div class="glit" id="name"><span class="shadow"></span><span class="outline"></span><span class="fill"></span></div></div>
@@ -213,25 +213,26 @@ function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const
     {x:555, y:-60,  w:215, c:'#e63ca9', r:-3},
     {x:780, y:-120, w:260, c:'#c89cff', r:6},
     {x:1000,y:-60,  w:225, c:'#ff8fd0', r:-5},
-    {x:205, y:150,  w:185, c:'#ff8fd0', r:7},
-    {x:445, y:185,  w:165, c:'#dfc6ff', r:-6},
-    {x:690, y:165,  w:195, c:'#8f44ff', r:3},
-    {x:905, y:205,  w:175, c:'#ff5fb3', r:-4},
+    {x:205, y:150,  w:185, c:'#ff8fd0', r:7,  zona:'gore'},
+    {x:445, y:185,  w:165, c:'#dfc6ff', r:-6, zona:'gore'},
+    {x:690, y:165,  w:195, c:'#8f44ff', r:3,  zona:'gore'},
+    {x:905, y:205,  w:175, c:'#ff5fb3', r:-4, zona:'gore'},
     {x:40,  y:330,  w:150, c:'#e63ca9', r:5},
     {x:1045,y:340,  w:155, c:'#c89cff', r:-7},
     // dole
     {x:150, y:1395, w:118, c:'#dfc6ff', r:-9},
     {x:940, y:1415, w:112, c:'#ffb6e1', r:8},
     {x:70,  y:1560, w:230, c:'#ff5fb3', r:6},
-    {x:265, y:1700, w:205, c:'#9b4dff', r:-5},
-    {x:470, y:1640, w:235, c:'#ff8fd0', r:3},
-    {x:690, y:1725, w:205, c:'#c89cff', r:-4},
-    {x:880, y:1600, w:240, c:'#e63ca9', r:5},
+    {x:265, y:1700, w:205, c:'#9b4dff', r:-5, zona:'dole'},
+    {x:470, y:1640, w:235, c:'#ff8fd0', r:3,  zona:'dole'},
+    {x:690, y:1725, w:205, c:'#c89cff', r:-4, zona:'dole'},
+    {x:880, y:1600, w:240, c:'#e63ca9', r:5,  zona:'dole'},
     {x:1050,y:1745, w:190, c:'#8f44ff', r:-6},
   ];
   for(const b of B){
     const s=b.w/100;
     const grp=el('g',{transform:`translate(${b.x-b.w/2} ${b.y}) scale(${s}) rotate(${b.r} 50 70)`,filter:'url(#bshadow)'},g);
+    if(b.zona) grp.setAttribute('data-zona',b.zona);
     // kanap
     const len=rnd(70,95);
     el('path',{d:`M50 146 c 11 ${len*.3} -13 ${len*.6} 0 ${len} c 9 ${len*.25} -8 ${len*.5} 0 ${len*.8}`,fill:'none',stroke:'rgba(255,255,255,.95)','stroke-width':1.8,'stroke-linecap':'round'},grp);
@@ -306,8 +307,19 @@ function glit(text, cls){
   document.getElementById('poruka').textContent=P.poruka;
 })();
 
+/* opcione slike: ako slika postoji, sakrij balone koje bi prekrila; ako ne postoji, ukloni je */
+const slike=[...document.querySelectorAll('img.art')].map(img=>new Promise(res=>{
+  const gotovo=ok=>{
+    if(ok) document.querySelectorAll(`#bgroup [data-zona="${img.dataset.zona}"]`).forEach(b=>b.remove());
+    else img.remove();
+    res();
+  };
+  if(img.complete) gotovo(img.naturalWidth>0);
+  else{ img.onload=()=>gotovo(true); img.onerror=()=>gotovo(false); }
+}));
+
 /* ime se automatski smanjuje da stane u širinu */
-document.fonts.ready.then(()=>{
+Promise.all([document.fonts.ready, ...slike]).then(()=>{
   const n=document.getElementById('name'), fill=n.querySelector('.fill');
   let fs=parseFloat(getComputedStyle(n).fontSize);
   while(fill.offsetWidth>940 && fs>60){fs-=2;n.style.fontSize=fs+'px'}
