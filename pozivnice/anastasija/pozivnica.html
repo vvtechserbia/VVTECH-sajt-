@@ -163,7 +163,7 @@
    ========================================================= */
 const POZIVNICA = {
   ime:      'Anastasija',
-  godine:   5,               // npr. 5  ->  "PUNI 5 GODINA" sa velikim brojem;  null -> "SLAVI ROĐENDAN"
+  godine:   5,               // npr. 5  ->  "SLAVI 5. ROĐENDAN" sa velikim brojem;  null -> "SLAVI ROĐENDAN"
   dan:      '09',
   mesec:    'OKT. 2026',
   pocetak:  '18:00',
@@ -296,7 +296,7 @@ function glit(text, cls){
   const P=POZIVNICA;
   document.getElementById('name').querySelectorAll('span').forEach(s=>s.textContent=P.ime);
   const sub=document.getElementById('sub');
-  if(P.godine){ sub.appendChild(glit('puni')); sub.appendChild(glit(String(P.godine),'age')); sub.appendChild(glit('godina')); }
+  if(P.godine){ sub.appendChild(glit('slavi')); sub.appendChild(glit(P.godine+'.','age')); sub.appendChild(glit('rođendan')); }
   else{ sub.appendChild(glit('slavi rođendan')); }
   document.getElementById('dan').textContent=P.dan;
   document.getElementById('mesec').textContent=P.mesec;
