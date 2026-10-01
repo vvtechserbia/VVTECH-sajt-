@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Pozivnica – Anastasija</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root{
+    --w:1080px; --h:1920px;
+    --pink:#ff5fb3; --pink2:#ff8fd0; --pink3:#ffc2e6;
+    --magenta:#e63ca9; --purple:#8f44ff; --violet:#6f2fe0; --lilac:#c89cff; --lavender:#dfc6ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#2a1340}
+  body{display:flex;justify-content:center;align-items:flex-start}
+
+  /* ---------- kartica ---------- */
+  .card{
+    position:relative;width:var(--w);height:var(--h);overflow:hidden;
+    font-family:'Fredoka',sans-serif;color:#fff;
+    background:
+      radial-gradient(760px 520px at 50% 38%, rgba(255,110,200,.55), transparent 70%),
+      radial-gradient(900px 620px at 50% 62%, rgba(170,100,255,.40), transparent 70%),
+      radial-gradient(640px 520px at 12% 92%, rgba(160,90,255,.35), transparent 70%),
+      radial-gradient(640px 520px at 90% 88%, rgba(255,110,200,.32), transparent 70%),
+      linear-gradient(180deg,#f3e3ff 0%,#f8e2f6 34%,#eed9ff 62%,#e4ccff 100%);
+  }
+  .layer{position:absolute;inset:0;width:var(--w);height:var(--h)}
+
+  /* roze svetlucava traka iza imena */
+  .band{
+    position:absolute;left:-90px;top:585px;width:1260px;height:290px;border-radius:50%;
+    background:radial-gradient(ellipse at center, rgba(255,95,185,.62) 0%, rgba(255,95,185,.28) 45%, rgba(255,95,185,0) 72%);
+    filter:blur(26px);transform:rotate(-4deg);
+  }
+
+  /* opcione slike (ako postoje fajlovi slika-gore.png / slika-dole.png pored ovog fajla) */
+  .art{position:absolute;left:50%;transform:translateX(-50%);object-fit:contain;object-position:bottom;z-index:4}
+  .art-top{top:30px;width:920px;height:570px}
+  .art-bottom{bottom:0;width:1000px;height:430px}
+
+  /* ---------- tekst ---------- */
+  .txt{position:absolute;left:0;right:0;display:flex;justify-content:center;z-index:5}
+
+  /* svetlucava slova (ime i podnaslov) */
+  .glit{position:relative;display:inline-block;line-height:1;white-space:nowrap}
+  .glit > span{display:block}
+  .glit .shadow{position:absolute;inset:0;color:rgba(120,40,210,.55);filter:blur(14px);transform:translateY(14px)}
+  .glit .outline{position:absolute;inset:0;color:#fff;-webkit-text-stroke:var(--stroke,12px) #fff;
+    filter:drop-shadow(0 0 6px rgba(255,255,255,.9))}
+  .glit .fill{position:relative;color:transparent;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,.95) 0 1.3px, transparent 2.2px) 0 0/21px 25px,
+      radial-gradient(circle at 70% 60%, rgba(255,255,255,.85) 0 1.1px, transparent 1.9px) 6px 10px/31px 19px,
+      radial-gradient(circle at 50% 50%, rgba(255,255,255,.75) 0 .9px, transparent 1.6px) 12px 4px/15px 13px,
+      radial-gradient(circle at 20% 80%, rgba(255,230,250,.9) 0 1.6px, transparent 2.6px) 9px 17px/47px 41px,
+      var(--grad, linear-gradient(180deg,#ff86d3 0%,#ff49b4 36%,#c44cff 68%,#7b35ff 100%));
+    -webkit-background-clip:text;background-clip:text;   /* mora posle "background" skraćenice */
+  }
+
+  .name{top:628px}
+  .name .glit{font-family:'Lilita One',sans-serif;font-size:176px;letter-spacing:5px;text-transform:uppercase;--stroke:13px}
+
+  .sub{top:838px}
+  .sub .glit{font-family:'Fredoka',sans-serif;font-weight:700;font-size:62px;letter-spacing:7px;text-transform:uppercase;
+    --stroke:9px;--grad:linear-gradient(180deg,#e07cff 0%,#b34dff 55%,#7d35ff 100%)}
+  .sub .row{display:flex;align-items:center;gap:26px}
+  .sub .age{font-family:'Lilita One',sans-serif;font-size:170px;letter-spacing:0;--stroke:13px;
+    --grad:linear-gradient(180deg,#ff86d3 0%,#ff49b4 36%,#c44cff 68%,#7b35ff 100%)}
+
+  /* datum i vreme */
+  .when{top:948px}
+  .when .wrap{display:flex;align-items:center;gap:0}
+  .col{display:flex;flex-direction:column;align-items:center;padding:0 46px}
+  .col .big{font-weight:700;font-size:176px;line-height:.9;letter-spacing:-2px}
+  .col .small{font-weight:700;font-size:54px;line-height:1;letter-spacing:5px;text-transform:uppercase;margin-top:18px}
+  .divider{width:5px;height:250px;border-radius:3px;background:rgba(255,255,255,.95);box-shadow:0 0 14px rgba(255,255,255,.9),0 6px 16px rgba(120,40,200,.35)}
+  .wh{ text-shadow:0 3px 0 rgba(140,60,220,.35), 0 12px 26px rgba(110,30,200,.55), 0 0 2px rgba(110,30,200,.6) }
+
+  /* mesto */
+  .where{top:1220px}
+  .where .wrap{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .where .place{display:flex;align-items:center;gap:20px;font-weight:700;font-size:66px;line-height:1}
+  .where .place svg{width:62px;height:78px;filter:drop-shadow(0 6px 10px rgba(110,30,200,.45))}
+  .where .addr{font-weight:600;font-size:50px;line-height:1;letter-spacing:1px}
+
+  /* poruka */
+  .msg{top:1398px}
+  .msg .script{font-family:'Dancing Script',cursive;font-weight:700;font-size:122px;line-height:1;
+    text-shadow:0 0 18px rgba(255,255,255,.85), 0 4px 0 rgba(140,60,220,.3), 0 10px 26px rgba(110,30,200,.55)}
+</style>
+</head>
+<body>
+<div class="card" id="card">
+
+  <!-- sitne svetlucave tačkice po celoj pozivnici -->
+  <svg class="layer" id="dust" viewBox="0 0 1080 1920"></svg>
+
+  <div class="band"></div>
+  <svg class="layer" id="bandDust" viewBox="0 0 1080 1920"></svg>
+
+  <!-- baloni -->
+  <svg class="layer" id="balloons" viewBox="0 0 1080 1920">
+    <defs>
+      <path id="bshape" d="M50 2 C22 2 2 26 2 56 C2 88 28 114 44 130 L50 138 L56 130 C72 114 98 88 98 56 C98 26 78 2 50 2 Z"/>
+      <radialGradient id="gloss" cx="34%" cy="24%" r="78%">
+        <stop offset="0" stop-color="#fff" stop-opacity=".9"/>
+        <stop offset=".32" stop-color="#fff" stop-opacity=".28"/>
+        <stop offset=".66" stop-color="#fff" stop-opacity="0"/>
+        <stop offset="1" stop-color="#2a0a50" stop-opacity=".22"/>
+      </radialGradient>
+      <filter id="bshadow" x="-30%" y="-30%" width="160%" height="170%">
+        <feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#5a1fa0" flood-opacity=".28"/>
+      </filter>
+      <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+        <feGaussianBlur stdDeviation="2.4" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <g id="bgroup"></g>
+  </svg>
+
+  <!-- konfete, zvezdice, note -->
+  <svg class="layer" id="sparkles" viewBox="0 0 1080 1920"></svg>
+
+  <!-- opcione slike junaka (dodati fajlove slika-gore.png i slika-dole.png pored ovog fajla) -->
+  <img class="art art-top" src="slika-gore.png" alt="" onerror="this.remove()">
+  <img class="art art-bottom" src="slika-dole.png" alt="" onerror="this.remove()">
+
+  <!-- ime -->
+  <div class="txt name"><div class="glit" id="name"><span class="shadow"></span><span class="outline"></span><span class="fill"></span></div></div>
+
+  <!-- "slavi rođendan" / "puni N godina" -->
+  <div class="txt sub"><div class="row" id="sub"></div></div>
+
+  <!-- datum i vreme -->
+  <div class="txt when"><div class="wrap">
+    <div class="col"><div class="big wh" id="dan"></div><div class="small wh" id="mesec"></div></div>
+    <div class="divider"></div>
+    <div class="col"><div class="big wh" id="pocetak"></div><div class="small wh" id="kraj"></div></div>
+  </div></div>
+
+  <!-- mesto -->
+  <div class="txt where"><div class="wrap">
+    <div class="place wh">
+      <svg viewBox="0 0 64 80" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 76 C32 76 8 48 8 29 A24 24 0 0 1 56 29 C56 48 32 76 32 76 Z"/>
+        <circle cx="32" cy="29" r="9"/>
+      </svg>
+      <span id="lokacija"></span>
+    </div>
+    <div class="addr wh" id="adresa"></div>
+  </div></div>
+
+  <!-- poruka -->
+  <div class="txt msg"><div class="script" id="poruka"></div></div>
+</div>
+
+<script>
+/* =========================================================
+   PODACI ZA POZIVNICU — promeni ovde
+   ========================================================= */
+const POZIVNICA = {
+  ime:      'Anastasija',
+  godine:   null,            // npr. 5  ->  "PUNI 5 GODINA" sa velikim brojem;  null -> "SLAVI ROĐENDAN"
+  dan:      '09',
+  mesec:    'OKT. 2026',
+  pocetak:  '18:00',
+  kraj:     'do 21:00 h',
+  lokacija: 'Igraonica Lav',
+  adresa:   'Nemanjina 4, Pančevo',
+  poruka:   'Čekamo te!',
+};
+
+/* ---------- ukrasi (deterministički "random") ---------- */
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const R = rng(20261009);
+const rnd = (a,b)=>a+(b-a)*R();
+const pick = arr=>arr[Math.floor(R()*arr.length)];
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+
+/* sitne tačkice po celoj kartici */
+(function(){
+  const g=document.getElementById('dust');
+  const cols=['#fff','#fff','#ffd6f0','#ffb3e2','#e2ccff'];
+  for(let i=0;i<650;i++){
+    el('circle',{cx:rnd(0,1080).toFixed(1),cy:rnd(0,1920).toFixed(1),r:rnd(1,3.2).toFixed(2),fill:pick(cols),opacity:rnd(.3,.95).toFixed(2)},g);
+  }
+})();
+
+/* gušći šljokice u traci iza imena */
+(function(){
+  const g=document.getElementById('bandDust');
+  const cols=['#fff','#fff','#ffe3f5','#ff8fd0','#ff5fb3','#e63ca9','#d9b8ff'];
+  const cx=540,cy=730,rx=600,ry=135,ang=-4*Math.PI/180;
+  for(let i=0;i<420;i++){
+    const t=rnd(0,Math.PI*2), d=Math.sqrt(R());
+    let x=Math.cos(t)*rx*d, y=Math.sin(t)*ry*d;
+    const X=cx+x*Math.cos(ang)-y*Math.sin(ang), Y=cy+x*Math.sin(ang)+y*Math.cos(ang);
+    el('circle',{cx:X.toFixed(1),cy:Y.toFixed(1),r:rnd(1.4,5.5).toFixed(2),fill:pick(cols),opacity:rnd(.35,1).toFixed(2)},g);
+  }
+})();
+
+/* baloni */
+(function(){
+  const g=document.getElementById('bgroup');
+  const B=[
+    // gore (delimično isečeni ivicom)
+    {x:95,  y:-70,  w:230, c:'#9b4dff', r:-8},
+    {x:330, y:-110, w:270, c:'#ff5fb3', r:4},
+    {x:555, y:-60,  w:215, c:'#e63ca9', r:-3},
+    {x:780, y:-120, w:260, c:'#c89cff', r:6},
+    {x:1000,y:-60,  w:225, c:'#ff8fd0', r:-5},
+    {x:205, y:150,  w:185, c:'#ff8fd0', r:7},
+    {x:445, y:185,  w:165, c:'#dfc6ff', r:-6},
+    {x:690, y:165,  w:195, c:'#8f44ff', r:3},
+    {x:905, y:205,  w:175, c:'#ff5fb3', r:-4},
+    {x:40,  y:330,  w:150, c:'#e63ca9', r:5},
+    {x:1045,y:340,  w:155, c:'#c89cff', r:-7},
+    // dole
+    {x:150, y:1395, w:118, c:'#dfc6ff', r:-9},
+    {x:940, y:1415, w:112, c:'#ffb6e1', r:8},
+    {x:70,  y:1560, w:230, c:'#ff5fb3', r:6},
+    {x:265, y:1700, w:205, c:'#9b4dff', r:-5},
+    {x:470, y:1640, w:235, c:'#ff8fd0', r:3},
+    {x:690, y:1725, w:205, c:'#c89cff', r:-4},
+    {x:880, y:1600, w:240, c:'#e63ca9', r:5},
+    {x:1050,y:1745, w:190, c:'#8f44ff', r:-6},
+  ];
+  for(const b of B){
+    const s=b.w/100;
+    const grp=el('g',{transform:`translate(${b.x-b.w/2} ${b.y}) scale(${s}) rotate(${b.r} 50 70)`,filter:'url(#bshadow)'},g);
+    // kanap
+    const len=rnd(70,95);
+    el('path',{d:`M50 146 c 11 ${len*.3} -13 ${len*.6} 0 ${len} c 9 ${len*.25} -8 ${len*.5} 0 ${len*.8}`,fill:'none',stroke:'rgba(255,255,255,.95)','stroke-width':1.8,'stroke-linecap':'round'},grp);
+    // telo
+    el('use',{href:'#bshape',fill:b.c},grp);
+    el('use',{href:'#bshape',fill:'url(#gloss)'},grp);
+    // čvor
+    el('path',{d:'M42 137 L58 137 L52 148 L48 148 Z',fill:b.c},grp);
+    el('path',{d:'M42 137 L58 137 L52 148 L48 148 Z',fill:'rgba(0,0,0,.18)'},grp);
+    // odsjaj
+    el('ellipse',{cx:30,cy:36,rx:8,ry:17,transform:'rotate(-28 30 36)',fill:'#fff',opacity:.85},grp);
+    el('ellipse',{cx:24,cy:62,rx:3.2,ry:6,transform:'rotate(-20 24 62)',fill:'#fff',opacity:.7},grp);
+  }
+})();
+
+/* zvezdice, zvezde, konfete, note */
+(function(){
+  const g=document.getElementById('sparkles');
+  const sparkPath='M0 -1 C0.12 -0.35 0.35 -0.12 1 0 C0.35 0.12 0.12 0.35 0 1 C-0.12 0.35 -0.35 0.12 -1 0 C-0.35 -0.12 -0.12 -0.35 0 -1 Z';
+  const starPath=(()=>{let d='';for(let i=0;i<10;i++){const r=i%2?0.45:1,a=-Math.PI/2+i*Math.PI/5;d+=(i?'L':'M')+(Math.cos(a)*r).toFixed(3)+' '+(Math.sin(a)*r).toFixed(3)+' '}return d+'Z'})();
+  const zones=[ [0,1080,0,600], [0,1080,1500,1920], [0,100,600,1500], [980,1080,600,1500] ];
+  const inZone=()=>{const z=pick(zones);return [rnd(z[0],z[1]),rnd(z[2],z[3])]};
+  // 4-krake iskrice
+  for(let i=0;i<34;i++){
+    const [x,y]=inZone(), s=rnd(9,30);
+    el('path',{d:sparkPath,transform:`translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${s.toFixed(1)}) rotate(${rnd(-20,20).toFixed(0)})`,
+      fill:pick(['#fff','#fff','#ffe6f6','#ffc2e6','#e8d6ff']),opacity:rnd(.7,1).toFixed(2),filter:'url(#glow)'},g);
+  }
+  // iskrice oko poruke
+  for(const [x,y,s] of [[262,1420,18],[300,1480,11],[820,1413,20],[790,1483,12]]){
+    el('path',{d:sparkPath,transform:`translate(${x} ${y}) scale(${s})`,fill:'#fff',opacity:.95,filter:'url(#glow)'},g);
+  }
+  // petokrake zvezde
+  for(let i=0;i<14;i++){
+    const [x,y]=inZone(), s=rnd(8,20);
+    el('path',{d:starPath,transform:`translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${s.toFixed(1)}) rotate(${rnd(-30,30).toFixed(0)})`,
+      fill:pick(['#fff','#ffd1ec','#ff8fd0','#d9b8ff']),opacity:rnd(.7,1).toFixed(2),filter:'url(#glow)'},g);
+  }
+  // konfete
+  for(let i=0;i<44;i++){
+    const [x,y]=inZone(), w=rnd(7,12), h=rnd(14,24);
+    el('rect',{x:(-w/2).toFixed(1),y:(-h/2).toFixed(1),width:w.toFixed(1),height:h.toFixed(1),rx:3,
+      transform:`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rnd(0,180).toFixed(0)})`,
+      fill:pick(['#ff5fb3','#ff8fd0','#9b4dff','#c89cff','#fff','#e63ca9']),opacity:rnd(.6,.95).toFixed(2)},g);
+  }
+  // muzičke note
+  for(const [x,y,s,r,c] of [[112,520,1.25,-12,'#fff'],[1000,470,1.1,10,'#ffd1ec'],[560,1870,1.15,-8,'#fff'],[380,1500,.95,14,'#e8d6ff']]){
+    const n=el('g',{transform:`translate(${x} ${y}) scale(${s}) rotate(${r})`,filter:'url(#glow)',opacity:.92},g);
+    el('ellipse',{cx:0,cy:0,rx:9,ry:6.5,transform:'rotate(-22)',fill:c},n);
+    el('path',{d:'M8 -2 V -42 q 16 4 18 22',fill:'none',stroke:c,'stroke-width':4.5,'stroke-linecap':'round'},n);
+  }
+})();
+
+/* ---------- tekst ---------- */
+function glit(text, cls){
+  const d=document.createElement('div'); d.className='glit'+(cls?' '+cls:'');
+  for(const c of ['shadow','outline','fill']){const s=document.createElement('span');s.className=c;s.textContent=text;d.appendChild(s)}
+  return d;
+}
+(function(){
+  const P=POZIVNICA;
+  document.getElementById('name').querySelectorAll('span').forEach(s=>s.textContent=P.ime);
+  const sub=document.getElementById('sub');
+  if(P.godine){ sub.appendChild(glit('puni')); sub.appendChild(glit(String(P.godine),'age')); sub.appendChild(glit('godina')); }
+  else{ sub.appendChild(glit('slavi rođendan')); }
+  document.getElementById('dan').textContent=P.dan;
+  document.getElementById('mesec').textContent=P.mesec;
+  document.getElementById('pocetak').textContent=P.pocetak;
+  document.getElementById('kraj').textContent=P.kraj;
+  document.getElementById('lokacija').textContent=P.lokacija;
+  document.getElementById('adresa').textContent=P.adresa;
+  document.getElementById('poruka').textContent=P.poruka;
+})();
+
+/* ime se automatski smanjuje da stane u širinu */
+document.fonts.ready.then(()=>{
+  const n=document.getElementById('name'), fill=n.querySelector('.fill');
+  let fs=parseFloat(getComputedStyle(n).fontSize);
+  while(fill.offsetWidth>940 && fs>60){fs-=2;n.style.fontSize=fs+'px'}
+  window.__ready=true;
+});
+</script>
+</body>
+</html>
