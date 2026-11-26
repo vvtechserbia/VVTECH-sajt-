@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/style.css?v=15">
+<link rel="stylesheet" href="../css/style.css?v=17">
 </head>
 <body>
 <a href="#sadrzaj" class="skip">Preskoči na sadržaj</a>
@@ -105,7 +105,7 @@
 
       <div class="product" id="gcs">
         <figure>
-          <img src="../assets/projects/gnc.webp?v=13" alt="VVTECH GCS — softver zemaljske stanice" width="2400" height="1500" loading="lazy">
+          <img src="../assets/projects/gnc.webp?v=16" alt="VVTECH GCS — softver zemaljske stanice" width="2400" height="1500" loading="lazy">
           <figcaption>VVTECH GCS — ekran operatera</figcaption>
         </figure>
         <div>
@@ -115,10 +115,10 @@
             putanjom i tačkama, veštački horizont, podatke leta i stanje veze, a ceo let se zapisuje za
             naknadnu analizu.</p>
           <table class="facts">
-            <tr><th>Prikaz</th><td>mapa misije, veštački horizont, podaci leta</td></tr>
+            <tr><th>Prikaz</th><td>mapa misije, HUD sa veštačkim horizontom, podaci leta</td></tr>
             <tr><th>Veza sa letelicom</th><td>MAVLink 2 preko UDP</td></tr>
             <tr><th>Plan misije</th><td>tačke, visine, status izvršenja</td></tr>
-            <tr><th>Zapis</th><td>log leta za naknadnu analizu</td></tr>
+            <tr><th>Snimanje</th><td>snimak leta za naknadnu analizu</td></tr>
           </table>
         </div>
       </div>
@@ -140,6 +140,43 @@
             <tr><th>Održavanje</th><td>ažuriranje softvera na daljinu</td></tr>
           </table>
         </div>
+      </div>
+
+      <h2 id="u-razvoju">U razvoju</h2>
+      <p>Uređaji i softver na kojima radimo ili ih pripremamo. Podatke o stanju i rokovima šaljemo na upit.</p>
+
+      <div class="product" id="zemaljska-stanica" style="margin-top:22px">
+        <figure>
+          <img src="../assets/products/zemaljska-stanica.webp" alt="Prenosna zemaljska stanica — prikaz uređaja u razvoju" width="1600" height="1200" loading="lazy">
+          <figcaption>Prenosna zemaljska stanica — prikaz uređaja u razvoju</figcaption>
+        </figure>
+        <div>
+          <h2>Prenosna zemaljska stanica</h2>
+          <p class="kind">Uređaj u razvoju</p>
+          <p>Robusni terminal operatera za rad na terenu: prikaz mape misije, podataka leta i stanja veze, sa dve komandne palice i prekidačima za ručno upravljanje.</p>
+          <table class="facts">
+            <tr><th>Ekran</th><td>10,1 inč, osetljiv na dodir</td></tr>
+            <tr><th>Upravljanje</th><td>dve komandne palice sa povratkom u središte</td></tr>
+            <tr><th>Prekidači</th><td>četiri preklopna prekidača na gornjoj strani</td></tr>
+            <tr><th>Priključak</th><td>kružni konektor sa navojem, 6 kontakata</td></tr>
+            <tr><th>Napajanje</th><td>12 V DC</td></tr>
+            <tr><th>Stanje</th><td>u razvoju</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="grid wrap">
+          <thead><tr><th>Projekat</th><th>Vrsta</th><th>Namena</th><th>Stanje</th></tr></thead>
+          <tbody>
+            <tr><th>Simulator leta sa 6 i 7 stepeni slobode</th><td>softver</td><td>Proračun putanje, stabilnosti i rasturanja, Monte Karlo analize i poređenje sa merenjima.</td><td>u razvoju</td></tr>
+            <tr><th>Softver za rekonstrukciju leta</th><td>softver</td><td>Obrada zapisa sa sredstva i radarskih merenja: putanja, aerodinamički koeficijenti, odstupanja od modela, izveštaj.</td><td>u razvoju</td></tr>
+            <tr><th>Jedinica za navigaciju i vođenje</th><td>uređaj</td><td>Inercijalni senzori i GNSS prijemnik sa računarom za estimaciju stanja i algoritme vođenja.</td><td>u pripremi</td></tr>
+            <tr><th>Snimač podataka leta</th><td>uređaj</td><td>Snimanje inercijalnih merenja i stanja sistema velikom brzinom, za obradu posle ispitivanja.</td><td>u pripremi</td></tr>
+            <tr><th>Ispitni sto sa opremom u petlji (HIL)</th><td>oprema i softver</td><td>Simulacija leta u realnom vremenu povezana sa stvarnom jedinicom za vođenje, za proveru algoritama pre ispitivanja u letu.</td><td>u pripremi</td></tr>
+            <tr><th>Softver za kalibraciju inercijalnih senzora</th><td>softver</td><td>Određivanje faktora skale, pomeraja nule i neortogonalnosti osa iz merenja na obrtnom stolu.</td><td>u pripremi</td></tr>
+          </tbody>
+        </table>
       </div>
 
       <h2>Ostali projekti</h2>
@@ -196,6 +233,6 @@
     </div>
   </div>
 </footer>
-<script src="../js/main.js?v=15"></script>
+<script src="../js/main.js?v=17"></script>
 </body>
 </html>

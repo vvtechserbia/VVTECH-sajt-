@@ -100,15 +100,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* ---------- uvodni deo pocetne ---------- */
 
 .hero { background: var(--navy-dark); color: #fff; }
-.hero .container { padding-top: 84px; padding-bottom: 88px; }
-.hero-text { max-width: 860px; }
-.hero h1 { color: #fff; font-size: 54px; line-height: 1.08; letter-spacing: -0.022em; margin-bottom: 22px; }
+.hero .container { display: grid; grid-template-columns: 1fr 0.95fr; gap: 56px; align-items: center; padding-top: 64px; padding-bottom: 68px; }
+.hero h1 { color: #fff; font-size: 50px; line-height: 1.08; letter-spacing: -0.022em; margin-bottom: 22px; }
 .hero p { font-size: 18px; line-height: 1.6; color: #c9d5e1; max-width: 35em; margin-bottom: 32px; }
 .hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero .btn { background: #fff; border-color: #fff; color: var(--navy-dark); }
 .hero .btn:hover { background: #dfe7ef; border-color: #dfe7ef; }
 .hero .btn-outline { background: transparent; border-color: rgba(255, 255, 255, 0.45); color: #fff; }
 .hero .btn-outline:hover { background: rgba(255, 255, 255, 0.1); border-color: #fff; color: #fff; }
+
+.hero-photo { margin: 0; }
+.hero-photo a { display: block; }
+.hero-photo img { width: 100%; height: auto; border-radius: var(--radius); }
+.hero-photo figcaption { margin-top: 10px; font-size: 14px; color: #92a5b9; }
 
 /* ---------- sekcije ---------- */
 
@@ -190,6 +194,9 @@ table.grid thead th { background: var(--navy-dark); color: #fff; font-weight: 50
 table.grid thead th:first-child { border-top-left-radius: var(--radius); }
 table.grid thead th:last-child { border-top-right-radius: var(--radius); }
 table.grid tbody th { font-weight: 600; background: var(--cell); white-space: nowrap; }
+table.grid.wrap tbody th { white-space: normal; min-width: 190px; }
+table.grid.wrap td:nth-child(2), table.grid.wrap td:nth-child(4) { white-space: nowrap; }
+table.grid.wrap td:nth-child(3) { min-width: 260px; }
 
 .product { display: grid; grid-template-columns: 5fr 6fr; gap: 40px; padding: 28px; margin-bottom: 22px; align-items: start; scroll-margin-top: 92px; }
 .product figure { margin: 0; }
@@ -239,7 +246,8 @@ form textarea { resize: vertical; min-height: 150px; }
   .menu a { padding: 12px 14px; }
   .menu .cta { margin: 6px 0 0; }
   .menu .cta a { text-align: center; }
-  .hero .container { padding-top: 52px; padding-bottom: 56px; }
+  .hero .container { grid-template-columns: 1fr; gap: 36px; padding-top: 48px; padding-bottom: 48px; }
+  .hero-photo { max-width: 640px; }
   .hero h1 { font-size: 36px; }
   .two, .lists, .contact-page, .product { grid-template-columns: 1fr; gap: 24px; }
   .areas { grid-template-columns: 1fr; padding: 4px 22px; }
@@ -263,6 +271,20 @@ form textarea { resize: vertical; min-height: 150px; }
   .hero-buttons .btn { flex: 1 1 100%; }
   .lists > div { padding: 22px 22px 24px; }
   .contact-page form { padding: 22px; }
+}
+
+@media (max-width: 760px) {
+  /* tabela "U razvoju" na telefonu: svaki red kao blok, bez vodoravnog pomeranja */
+  table.grid.wrap, table.grid.wrap tbody { display: block; }
+  table.grid.wrap thead { display: none; }
+  table.grid.wrap tr { display: flex; flex-wrap: wrap; gap: 2px 8px; padding: 15px 18px; border-bottom: 1px solid var(--line); }
+  table.grid.wrap tr:last-child { border-bottom: 0; }
+  table.grid.wrap tbody th, table.grid.wrap td { display: block; padding: 0; border: 0; background: none; min-width: 0; white-space: normal; }
+  table.grid.wrap tbody th { flex: 0 0 100%; order: 1; font-size: 16px; }
+  table.grid.wrap td:nth-child(2) { order: 2; color: var(--muted); font-size: 14px; }
+  table.grid.wrap td:nth-child(4) { order: 3; color: var(--muted); font-size: 14px; }
+  table.grid.wrap td:nth-child(4)::before { content: "· "; }
+  table.grid.wrap td:nth-child(3) { flex: 0 0 100%; order: 4; margin-top: 5px; min-width: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
