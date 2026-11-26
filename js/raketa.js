@@ -1,11 +1,11 @@
 /* Animirana raketa u pojasu "Delatnost" (canvas, bez biblioteka).
-   Uz prefers-reduced-motion crta se jedna staticna slika; van kadra animacija stoji. */
+   Uz prefers-reduced-motion krece se mirnije (bez pomeranja i pracenja misa); van kadra animacija stoji. */
 (function () {
   var canvas = document.getElementById('raketa');
   if (!canvas || !canvas.getContext) return;
   var ctx = canvas.getContext('2d');
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var W = 0, H = 0, S = 1, CX = 0, CY = 0, DPR = 1, raf = null, t = 0;
+  var W = 0, H = 0, S = 1, CX = 0, CY = 0, OX = 0, OY = 0, DPR = 1, raf = null, t = 0;
   var mouse = { x: 0, y: 0 }, glow = null, stars = [], parts = [];
   var RB = 0.058;                       /* poluprecnik tela u duzinama rakete */
 
@@ -63,7 +63,7 @@
     var x2 = px * cp - y1 * sp, y2 = px * sp + y1 * cp;
     var x3 = x2 * cw + z1 * sw, z3 = -x2 * sw + z1 * cw;
     var k = 1 / (1 - z3 * 0.45);
-    return { x: CX + x3 * S * k, y: CY - y2 * S * k, z: z3, k: k };
+    return { x: CX + OX + x3 * S * k, y: CY + OY - y2 * S * k, z: z3, k: k };
   }
   function facing(ny, nz) {             /* koliko je povrsina okrenuta ka posmatracu: 0..1 */
     var y1 = ny * cr - nz * sr, z1 = ny * sr + nz * cr;
@@ -78,12 +78,14 @@
 
   function frame(dt) {
     ctx.clearRect(0, 0, W, H);
-    var pitch = 0.33 + 0.025 * Math.sin(t * 0.7) - mouse.y * 0.10, yaw = -0.42 + mouse.x * 0.22;
-    setAngles(t * 0.55, pitch, yaw);
+    var pitch = 0.33 + (reduce ? 0 : 0.03 * Math.sin(t * 0.7)) - mouse.y * 0.10, yaw = -0.42 + mouse.x * 0.22;
+    var drift = reduce ? 0 : Math.sin(t * 0.5) * 0.045 * S;       /* lagano napred-nazad duz pravca leta */
+    OX = Math.cos(pitch) * drift; OY = -Math.sin(pitch) * drift;
+    setAngles(t * 0.7, pitch, yaw);
     var i, j, p, a, b;
 
     /* zvezde klize unazad duz pravca leta */
-    var vx = -Math.cos(pitch) * 26 * dt, vy = Math.sin(pitch) * 26 * dt;
+    var sp0 = reduce ? 16 : 34, vx = -Math.cos(pitch) * sp0 * dt, vy = Math.sin(pitch) * sp0 * dt;
     for (i = 0; i < stars.length; i++) {
       p = stars[i];
       p.x += vx * p.d; p.y += vy * p.d;
@@ -158,10 +160,9 @@
     raf = requestAnimationFrame(tick);
   }
 
-  window.addEventListener('resize', function () { resize(); if (reduce) { frame(0); } });
+  window.addEventListener('resize', resize);
   resize();
-  if (reduce) { t = 1.4; frame(0); return; }
-  if (window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+  if (!reduce && window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
     var host = canvas.parentElement;
     host.addEventListener('mousemove', function (e) {
       var r = canvas.getBoundingClientRect();

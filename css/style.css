@@ -126,6 +126,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .band-anim { position: relative; height: 340px; }
 .band-anim canvas { position: absolute; inset: 0; display: block; }
 .section.after-band { padding-top: 40px; }
+.band-rev .container { grid-template-columns: 1.1fr 0.9fr; }
 
 /* ---------- sekcije ---------- */
 
@@ -268,6 +269,8 @@ form textarea { resize: vertical; min-height: 150px; }
   .band .container { grid-template-columns: 1fr; gap: 0; }
   .band-text { padding: 44px 0 8px; }
   .band-anim { height: 260px; }
+  .band-rev .band-text { order: 1; }
+  .band-rev .band-anim { order: 2; }
   .hero h1 { font-size: 36px; }
   .two, .lists, .contact-page, .product { grid-template-columns: 1fr; gap: 24px; }
   .areas { grid-template-columns: 1fr; padding: 4px 22px; }

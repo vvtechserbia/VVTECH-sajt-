@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20">
+<link rel="stylesheet" href="css/style.css?v=22">
 </head>
 <body>
 <a href="#sadrzaj" class="skip">Preskoči na sadržaj</a>
@@ -151,11 +151,20 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="band band-rev">
     <div class="container">
-      <h2>Uređaji i softver</h2>
-      <p class="intro">Primeri uređaja i softvera koje smo razvili i izradili.</p>
-      <div class="tiles body">
+      <div class="band-anim"><canvas id="dron" aria-hidden="true"></canvas></div>
+      <div class="band-text">
+        <h2>Uređaji i softver</h2>
+        <p>Primeri uređaja i softvera koje smo razvili i izradili.</p>
+        <a class="btn" href="projekti/">Svi uređaji i softver</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section after-band">
+    <div class="container">
+      <div class="tiles">
         <a class="tile" href="projekti/#telemetry-link">
           <img class="photo" src="assets/products/hs-mid-range-telemetry-svetla.webp" alt="High-Speed Mid-Range Telemetry Link" width="1600" height="1200" loading="lazy">
           <div class="tile-body">
@@ -231,7 +240,8 @@
     </div>
   </section>
 
-  <script src="js/raketa.js?v=20" defer></script>
+  <script src="js/raketa.js?v=22" defer></script>
+  <script src="js/dron.js?v=22" defer></script>
 </main>
 
 <footer class="footer">
@@ -273,6 +283,6 @@
     </div>
   </div>
 </footer>
-<script src="js/main.js?v=20"></script>
+<script src="js/main.js?v=22"></script>
 </body>
 </html>
