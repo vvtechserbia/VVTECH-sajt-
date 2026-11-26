@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/style.css?v=17">
+<link rel="stylesheet" href="../css/style.css?v=20">
 </head>
 <body>
 <a href="#sadrzaj" class="skip">Skip to content</a>
@@ -100,11 +100,20 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="band">
     <div class="container">
-      <h2>Capabilities</h2>
-      <p class="intro">We take on a complete system or a single subassembly, within a scope agreed in advance.</p>
-      <div class="areas body">
+      <div class="band-text">
+        <h2>Capabilities</h2>
+        <p>We take on a complete system or a single subassembly, within a scope agreed in advance.</p>
+        <a class="btn" href="services/">More about capabilities</a>
+      </div>
+      <div class="band-anim"><canvas id="raketa" aria-hidden="true"></canvas></div>
+    </div>
+  </section>
+
+  <section class="section after-band">
+    <div class="container">
+      <div class="areas">
         <div class="area">
           <h3>Guidance, navigation and control</h3>
           <p>Guidance laws, autopilot, estimation and sensor fusion, GNSS/INS integration, verification in simulation and on hardware.</p>
@@ -138,7 +147,6 @@
           <p>Integration of a subassembly into an existing system, interface definition, documentation for series production.</p>
         </div>
       </div>
-      <a class="more-link" href="services/">More about capabilities &rarr;</a>
     </div>
   </section>
 
@@ -222,6 +230,7 @@
     </div>
   </section>
 
+  <script src="../js/raketa.js?v=20" defer></script>
 </main>
 
 <footer class="footer">
@@ -263,6 +272,6 @@
     </div>
   </div>
 </footer>
-<script src="../js/main.js?v=17"></script>
+<script src="../js/main.js?v=20"></script>
 </body>
 </html>

@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=17">
+<link rel="stylesheet" href="css/style.css?v=20">
 </head>
 <body>
 <a href="#sadrzaj" class="skip">Preskoči na sadržaj</a>
@@ -100,12 +100,21 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="band">
     <div class="container">
-      <h2>Delatnost</h2>
-      <p class="intro">Posao preuzimamo na kompletnom sredstvu ili na jednom podsklopu, u obimu koji se
-        dogovara unapred.</p>
-      <div class="areas body">
+      <div class="band-text">
+        <h2>Delatnost</h2>
+        <p>Posao preuzimamo na kompletnom sredstvu ili na jednom podsklopu, u obimu koji se
+          dogovara unapred.</p>
+        <a class="btn" href="usluge/">Opširnije o delatnosti</a>
+      </div>
+      <div class="band-anim"><canvas id="raketa" aria-hidden="true"></canvas></div>
+    </div>
+  </section>
+
+  <section class="section after-band">
+    <div class="container">
+      <div class="areas">
         <div class="area">
           <h3>Vođenje, navigacija i upravljanje</h3>
           <p>Zakoni vođenja, autopilot, estimacija i senzorska fuzija, integracija GNSS/INS, provera u simulaciji i na opremi.</p>
@@ -139,7 +148,6 @@
           <p>Ugradnja podsklopa u postojeće sredstvo, definisanje interfejsa, dokumentacija za serijsku proizvodnju.</p>
         </div>
       </div>
-      <a class="more-link" href="usluge/">Opširnije o delatnosti &rarr;</a>
     </div>
   </section>
 
@@ -223,6 +231,7 @@
     </div>
   </section>
 
+  <script src="js/raketa.js?v=20" defer></script>
 </main>
 
 <footer class="footer">
@@ -264,6 +273,6 @@
     </div>
   </div>
 </footer>
-<script src="js/main.js?v=17"></script>
+<script src="js/main.js?v=20"></script>
 </body>
 </html>
