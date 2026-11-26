@@ -99,19 +99,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* ---------- uvodni deo pocetne ---------- */
 
-.hero { background: var(--navy-dark); color: #fff; overflow: hidden; }
-.hero .container { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 36px; align-items: end; padding-top: 56px; }
-.hero-text { align-self: center; padding-bottom: 64px; }
-.hero h1 { color: #fff; font-size: 50px; line-height: 1.08; letter-spacing: -0.022em; margin-bottom: 20px; }
-.hero p { font-size: 18px; line-height: 1.6; color: #c9d5e1; max-width: 29em; margin-bottom: 30px; }
+.hero { background: var(--navy-dark); color: #fff; }
+.hero .container { padding-top: 84px; padding-bottom: 88px; }
+.hero-text { max-width: 860px; }
+.hero h1 { color: #fff; font-size: 54px; line-height: 1.08; letter-spacing: -0.022em; margin-bottom: 22px; }
+.hero p { font-size: 18px; line-height: 1.6; color: #c9d5e1; max-width: 35em; margin-bottom: 32px; }
 .hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero .btn { background: #fff; border-color: #fff; color: var(--navy-dark); }
 .hero .btn:hover { background: #dfe7ef; border-color: #dfe7ef; }
 .hero .btn-outline { background: transparent; border-color: rgba(255, 255, 255, 0.45); color: #fff; }
 .hero .btn-outline:hover { background: rgba(255, 255, 255, 0.1); border-color: #fff; color: #fff; }
-.hero-img { margin: 0; }
-.hero-img img { width: 100%; max-width: 500px; margin: 0 auto; }
-.hero-img figcaption { text-align: center; font-size: 14px; color: #92a5b9; padding: 2px 0 20px; }
 
 /* ---------- sekcije ---------- */
 
@@ -242,10 +239,8 @@ form textarea { resize: vertical; min-height: 150px; }
   .menu a { padding: 12px 14px; }
   .menu .cta { margin: 6px 0 0; }
   .menu .cta a { text-align: center; }
-  .hero .container { grid-template-columns: 1fr; padding-top: 44px; }
-  .hero-text { padding-bottom: 8px; }
+  .hero .container { padding-top: 52px; padding-bottom: 56px; }
   .hero h1 { font-size: 36px; }
-  .hero-img img { max-width: 380px; }
   .two, .lists, .contact-page, .product { grid-template-columns: 1fr; gap: 24px; }
   .areas { grid-template-columns: 1fr; padding: 4px 22px; }
   .area:nth-last-child(2) { border-bottom: 1px solid var(--line); }
