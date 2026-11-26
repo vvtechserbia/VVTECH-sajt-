@@ -28,5 +28,9 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
+      # Paket sajta ponekad nije odmah vidljiv koraku objave
+      # (greska "No artifacts named github-pages"), pa se kratko saceka.
+      - name: Sacekaj paket sajta
+        run: sleep 20
       - id: deployment
         uses: actions/deploy-pages@v4
